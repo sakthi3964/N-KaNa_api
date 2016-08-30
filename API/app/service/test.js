@@ -53,5 +53,37 @@ module.exports = function (testmodel) {
 
         });
     };
+    userService.validateUserDetial = function (req, testmodel, Sequelize, res) {
+        console.log("welcome to Loginpage validation");
+        var email_id = req.body.email_id
+        var child_id = req.body.child_id;
+        var password = req.body.password;
+        if (!email_id) {
+            res.send("1");
+            return false;
+        }
+        else if (!password) {
+            res.send("2");
+            return false;
+        }
+        else {
+            return testmodel.findOne({
+                where: {
+                    email_id: email_id,
+                    password: password,
+                    status: 1,
+                    active: 1
+                }
+            }).then(function (result) {
+                if (result == null) {
+                    res.send("3");
+                    return false;
+                }
+                else {
+                    res.send(result);
+                }
+            });
+        }
+    };
     return userService;
 }

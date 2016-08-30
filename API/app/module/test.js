@@ -68,7 +68,7 @@ module.exports = {
                 //     notEmpty: true
                 // }
             },
-            mobile_number: {
+            mobile_no: {
                 type: Sequelize.INTEGER,
                 // validate: {
                 //     notEmpty: true,
@@ -115,13 +115,13 @@ module.exports = {
                 // }
 
             },
-            expertise: {
-                type: Sequelize.STRING,
-                // validate: {
-                //    // notEmpty: true
-                // }
+            // expertise: {
+            //     type: Sequelize.STRING,
+            //     // validate: {
+            //     //    // notEmpty: true
+            //     // }
 
-            },
+            // },
             experience: {
                 type: Sequelize.STRING,
                 // validate: {
