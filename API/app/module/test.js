@@ -62,14 +62,15 @@ module.exports = {
                 //     notEmpty: true
                 // }
             },
-            country_code: {
+            mobile_no: {
                 type: Sequelize.STRING,
                 // validate: {
-                //     notEmpty: true
+                //     notEmpty: true,
+                //     isNumeric: true
                 // }
             },
-            mobile_no: {
-                type: Sequelize.INTEGER,
+            phone: {
+                type: Sequelize.STRING,
                 // validate: {
                 //     notEmpty: true,
                 //     isNumeric: true
@@ -115,13 +116,13 @@ module.exports = {
                 // }
 
             },
-            // expertise: {
-            //     type: Sequelize.STRING,
-            //     // validate: {
-            //     //    // notEmpty: true
-            //     // }
+            expertise: {
+                type: Sequelize.STRING,
+                // validate: {
+                //    // notEmpty: true
+                // }
 
-            // },
+            },
             experience: {
                 type: Sequelize.STRING,
                 // validate: {
@@ -129,6 +130,12 @@ module.exports = {
                 // }
             },
             cv: {
+                type: Sequelize.STRING,
+                // validate: {
+                //    // notEmpty: true
+                // }
+            },
+            center: {
                 type: Sequelize.STRING,
                 // validate: {
                 //    // notEmpty: true

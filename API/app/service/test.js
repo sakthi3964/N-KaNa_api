@@ -12,7 +12,8 @@ module.exports = function (testmodel) {
         var institution = req.body.institution;
         var address = req.body.address;
         var country_code = req.body.country_code;
-        var mobile_number = req.body.mobile_number;
+        var mobile_no = req.body.mobile_no;
+        var phone = req.body.phone;
         var email_id = req.body.email_id;
         var password = req.body.password;
         var reference = req.body.reference;
@@ -23,8 +24,7 @@ module.exports = function (testmodel) {
         var experience = req.body.experience;
         var cv = req.body.cv;
         var photo = req.body.photo;
-        var status = req.body.status;
-        var active = req.body.active;
+        var center = req.body.center;
 
         return testmodel.create({
             role: role,
@@ -37,7 +37,7 @@ module.exports = function (testmodel) {
             institution: institution,
             address: address,
             country_code: country_code,
-            mobile_number: mobile_number,
+            mobile_no: mobile_no,
             email_id: email_id,
             password: password,
             reference: reference,
@@ -48,10 +48,16 @@ module.exports = function (testmodel) {
             experience: experience,
             cv: cv,
             photo: photo,
-            status: status,
-            active: active
+            center: center,
+            phone: phone
 
-        });
+        }).then(function (result) {
+                if (result == null) {
+                    res.send("3");
+                    res.send(result);
+                    return false;
+                }
+            });
     };
     userService.validateUserDetial = function (req, testmodel, Sequelize, res) {
         console.log("welcome to Loginpage validation");
