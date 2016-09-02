@@ -59,6 +59,32 @@ module.exports = function (testmodel) {
                 }
             });
     };
+     userService.InsertReview = function (req,testmodel,Sequelize,res) {
+      console.log("welcome insert review");
+       var time = req.body.time;
+       var care = req.body.care;
+       var behaviour = req.body.behaviour;
+       var confidentiality = req.body.confidentiality;
+       var mentorship = req.body.mentorship;
+       var environment = req.body.environment;
+       var feelings = req.body.feelings;
+       var willingness = req.body.willingness;
+       var learning = req.body.learning;
+       var feedback = req.body.feedback;
+          return testmodel.create({
+                time: time,
+                care: care,
+                behaviour:behaviour,
+                confidentiality:confidentiality,
+                mentorship:mentorship,
+                environment:environment,
+                feelings:feelings,
+                willingness:willingness,
+                learning:learning,
+                feedback:feedback
+            });
+
+  };
     userService.validateUserDetial = function (req, testmodel, Sequelize, res) {
         console.log("welcome to Loginpage validation");
         var email_id = req.body.email_id

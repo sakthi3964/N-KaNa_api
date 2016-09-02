@@ -4,6 +4,8 @@ module.exports = function (databaseBS, Sequelize){
     ApiRouter.apiRouters = function (router) {
         test.ValidateUser(router);
         test.registration(router);
+        test.ChildReview(router);
+
     }
     return ApiRouter;
 }
