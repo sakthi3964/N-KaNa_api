@@ -85,6 +85,32 @@ module.exports = function (testmodel) {
             });
 
   };
+  userService.InsertTracker = function (req,testmodel,Sequelize,res) {
+      console.log("welcome insert tracker");
+       var date = req.body.date;
+       var location = req.body.location;
+       var agenda = req.body.agenda;
+       var outcome = req.body.outcome;
+       var keyAccomplishment = req.body.keyAccomplishment;
+       var keyLearning = req.body.keyLearning;
+       var newConnection = req.body.newConnection;
+       var menteeChallenges = req.body.menteeChallenges;
+       var mentorChallenges = req.body.mentorChallenges;
+       var volunteerChallenges = req.body.volunteerChallenges ;
+          return testmodel.create({
+                time: time,
+                care: care,
+                behaviour:behaviour,
+                confidentiality:confidentiality,
+                mentorship:mentorship,
+                environment:environment,
+                feelings:feelings,
+                willingness:willingness,
+                learning:learning,
+                feedback:feedback
+            });
+
+  };
     userService.validateUserDetial = function (req, testmodel, Sequelize, res) {
         console.log("welcome to Loginpage validation");
         var email_id = req.body.email_id
