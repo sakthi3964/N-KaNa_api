@@ -18,7 +18,7 @@ module.exports = {
                 type: Sequelize.STRING
             },
             newConnection:{
-                type: Sequelize.BLOB
+                type: Sequelize.STRING
             },
             keyAccomplishment:{
                 type: Sequelize.STRING
@@ -40,6 +40,9 @@ module.exports = {
             },
              volunteer_id:{
                 type: Sequelize.INTEGER
+            },
+            review:{
+                type: Sequelize.STRING
             }
             
              });

@@ -97,17 +97,24 @@ module.exports = function (testmodel) {
        var menteeChallenges = req.body.menteeChallenges;
        var mentorChallenges = req.body.mentorChallenges;
        var volunteerChallenges = req.body.volunteerChallenges ;
+       var review= req.body.review;
+       var volunteer_id=req.body.volunteer_id;
+      // var sample = JSON.stringify(review);
+      console.log("hi");
+      // console.log(review.education);
           return testmodel.create({
-                time: time,
-                care: care,
-                behaviour:behaviour,
-                confidentiality:confidentiality,
-                mentorship:mentorship,
-                environment:environment,
-                feelings:feelings,
-                willingness:willingness,
-                learning:learning,
-                feedback:feedback
+                date: date,
+                location: location,
+                agenda:agenda,
+                outcome:outcome,
+                keyAccomplishment:keyAccomplishment,
+                keyLearning:keyLearning,
+                newConnection:newConnection,
+                menteeChallenges:menteeChallenges,
+                mentorChallenges:mentorChallenges,
+                volunteerChallenges:volunteerChallenges,
+                review:review,
+                volunteer_id:volunteer_id
             });
 
   };

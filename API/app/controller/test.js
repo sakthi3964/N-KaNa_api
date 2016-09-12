@@ -3,7 +3,7 @@ module.exports = function (databaseBS, Sequelize) {
     var test = require('../service/test')(regmodel);
     var childReviewModel = require('../module/childReview').ChildReviewDetial(databaseBS, Sequelize, "reviews");
     var test1 = require('../service/test')(childReviewModel);
-    var trackerModel = require('../module/tracker').ChildReviewDetial(databaseBS, Sequelize, "trackers");
+    var trackerModel = require('../module/tracker').TrackerDetial(databaseBS, Sequelize, "trackers");
     var test2 = require('../service/test')(trackerModel);
     var testController = {};
 
