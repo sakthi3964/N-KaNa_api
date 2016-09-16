@@ -1,3 +1,4 @@
+//trackers table description
 module.exports = {
     TrackerDetial: function (sequelize, Sequelize, modelName) {
         var User = sequelize.define('trackers', {

@@ -1,66 +1,8 @@
 module.exports = function (testmodel) {
     var userService = {};
-    // userService.InsertData = function (req, testmodel, Sequelize, res) {
-    //     console.log("Welcome");
-    //     var role = req.body.role;
-    //     var name = req.body.name;
-    //     var dob = req.body.dob;
-    //     var age = req.body.age;
-    //     var gender = req.body.gender;
-    //     var course = req.body.course;
-    //     var department = req.body.department;
-    //     var institution = req.body.institution;
-    //     var address = req.body.address;
-    //     var country_code = req.body.country_code;
-    //     var mobile_no = req.body.mobile_no;
-    //     var phone = req.body.phone;
-    //     var email_id = req.body.email_id;
-    //     var password = req.body.password;
-    //     var reference = req.body.reference;
-    //     var commitment = req.body.commitment;
-    //     var designation = req.body.designation;
-    //     var organization = req.body.organization;
-    //     var expertise = req.body.expertise;
-    //     var experience = req.body.experience;
-    //     var cv = req.body.cv;
-    //     var photo = req.body.photo;
-    //     var center = req.body.center;
-
-    //     return testmodel.create({
-    //         role: role,
-    //         name: name,
-    //         dob: dob,
-    //         age: age,
-    //         gender: gender,
-    //         course: course,
-    //         department: department,
-    //         institution: institution,
-    //         address: address,
-    //         country_code: country_code,
-    //         mobile_no: mobile_no,
-    //         email_id: email_id,
-    //         password: password,
-    //         reference: reference,
-    //         commitment: commitment,
-    //         designation: designation,
-    //         organization: organization,
-    //         expertise: expertise,
-    //         experience: experience,
-    //         cv: cv,
-    //         photo: photo,
-    //         center: center,
-    //         phone: phone
-
-    //     }).then(function (result) {
-    //             if (result == null) {
-    //                 res.send("3");
-    //                 res.send(result);
-    //                 return false;
-    //             }
-    //         });
-    // };
+    //insert data from volunteer registration page to profile and profile info model
      userService.InsertProfile = function (req, profilemodel,profileinfomodel, Sequelize, callBack) {
-        console.log("Welcome uddgsxyudchj");
+        console.log("Welcome");
         var role = req.body.role;
         var name = req.body.name;
         var dob = req.body.dob;
@@ -134,14 +76,13 @@ module.exports = function (testmodel) {
                     res.profileinfo = result;
                     callBack(res);
                 })
-            //           console.log(result);
-            // callBack(result);
-  
+             
             }).catch(function (error) {
                 callBack(error);
             });
 
           };
+    //insert child review form data into child review model
      userService.InsertReview = function (req,testmodel,Sequelize,res) {
       console.log("welcome insert review");
        var time = req.body.time;
@@ -179,6 +120,7 @@ module.exports = function (testmodel) {
             });                       
          
         },
+        //retreive data from tracker model to generate graph
         userService.ViewReviewDetail = function (req, testmodel, Sequelize, res) {
             console.log("welcome to listing of review details of tracker  of users");
             
@@ -190,7 +132,9 @@ module.exports = function (testmodel) {
             });                       
          
         },
-  userService.InsertTracker = function (req,testmodel,Sequelize,res) {
+
+     //insert data into tracker model   
+     userService.InsertTracker = function (req,testmodel,Sequelize,res) {
       console.log("welcome insert tracker");
        var date = req.body.date;
        var location = req.body.location;
@@ -204,10 +148,8 @@ module.exports = function (testmodel) {
        var volunteerChallenges = req.body.volunteerChallenges ;
        var review= req.body.review;
        var volunteer_id=req.body.volunteer_id;
-      // var sample = JSON.stringify(review);
-      console.log("hi");
-      // console.log(review.education);
-          return testmodel.create({
+       console.log("hi");
+               return testmodel.create({
                 date: date,
                 location: location,
                 agenda:agenda,
@@ -223,6 +165,7 @@ module.exports = function (testmodel) {
             });
 
   };
+    //valiation of the login page using users table
     userService.validateUserDetial = function (req, testmodel, Sequelize, res) {
         console.log("welcome to Loginpage validation");
         var email_id = req.body.email_id

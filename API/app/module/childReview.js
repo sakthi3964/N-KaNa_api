@@ -1,3 +1,4 @@
+// reviews table description
 module.exports = {
     ChildReviewDetial: function (sequelize, Sequelize, modelName) {
         var User = sequelize.define('reviews', {

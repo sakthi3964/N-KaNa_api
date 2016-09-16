@@ -1,3 +1,4 @@
+// profiles table description
 module.exports = {
     UserDetial: function (sequelize, Sequelize, modelName) {
         var User = sequelize.define('profiles', {
