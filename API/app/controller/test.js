@@ -1,5 +1,5 @@
 module.exports = function (databaseBS, Sequelize) {
-    var regmodel = require('../module/test').UserDetial(databaseBS, Sequelize, "users");
+    var regmodel = require('../module/user').UserDetial(databaseBS, Sequelize, "users");
     var test = require('../service/test')(regmodel);
     var childReviewModel = require('../module/childReview').ChildReviewDetial(databaseBS, Sequelize, "reviews");
     var test1 = require('../service/test')(childReviewModel);
