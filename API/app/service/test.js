@@ -1,7 +1,7 @@
 module.exports = function (testmodel) {
     var userService = {};
     //insert data from volunteer registration page to profile and profile info model
-     userService.InsertProfile = function (req, profilemodel,profileinfomodel, Sequelize, callBack) {
+    userService.InsertProfile = function (req, profilemodel, profileinfomodel, Sequelize, callBack) {
         console.log("Welcome");
         var role = req.body.role;
         var name = req.body.name;
@@ -9,7 +9,7 @@ module.exports = function (testmodel) {
         var age = req.body.age;
         var gender = req.body.gender;
         var course = req.body.course;
-        var area_of_expertise=req.body.area_of_expertise;
+        var area_of_expertise = req.body.area_of_expertise;
         var department = req.body.department;
         var institution = req.body.institution;
         var address_line1 = req.body.address_line1;
@@ -37,7 +37,7 @@ module.exports = function (testmodel) {
         profilemodel.create({
             role: role,
             name: name,
-           // dob: dob,
+            // dob: dob,
             age: age,
             gender: gender,
             address_line1: address_line1,
@@ -53,118 +53,118 @@ module.exports = function (testmodel) {
             phone: phone
 
         }).then(function (result) {
-            console.log("sucses");   
-            console.log(result.id);       
-              profileinfomodel.belongsTo(profilemodel, { foreignKey: 'profile_id' });
-                profileinfomodel.create({            
-            profile_id:result.id,
-            course: course,
-            department: department,
-            institution: institution,
-            reference: reference,
-            commitment: commitment,
-            designation: designation,
-            organization: organization,
-            area_of_expertise: area_of_expertise,
-            experience: experience,
-            cv: cv,
-            photo: photo,
+            console.log("sucses");
+            console.log(result.id);
+            profileinfomodel.belongsTo(profilemodel, { foreignKey: 'profile_id' });
+            profileinfomodel.create({
+                profile_id: result.id,
+                course: course,
+                department: department,
+                institution: institution,
+                reference: reference,
+                commitment: commitment,
+                designation: designation,
+                organization: organization,
+                area_of_expertise: area_of_expertise,
+                experience: experience,
+                cv: cv,
+                photo: photo,
             }).then(function (results) {
                 console.log("suces inside");
-                    var res = {};
-                    res.profile = results;
-                    res.profileinfo = result;
-                    callBack(res);
-                })
-             
-            }).catch(function (error) {
-                callBack(error);
-            });
+                var res = {};
+                res.profile = results;
+                res.profileinfo = result;
+                callBack(res);
+            })
 
-          };
+        }).catch(function (error) {
+            callBack(error);
+        });
+
+    };
     //insert child review form data into child review model
-     userService.InsertReview = function (req,testmodel,Sequelize,res) {
-      console.log("welcome insert review");
-       var time = req.body.time;
-       var care = req.body.care;
-       var behaviour = req.body.behaviour;
-       var confidentiality = req.body.confidentiality;
-       var mentorship = req.body.mentorship;
-       var environment = req.body.environment;
-       var feelings = req.body.feelings;
-       var willingness = req.body.willingness;
-       var learning = req.body.learning;
-       var feedback = req.body.feedback;
-          return testmodel.create({
-                time: time,
-                care: care,
-                behaviour:behaviour,
-                confidentiality:confidentiality,
-                mentorship:mentorship,
-                environment:environment,
-                feelings:feelings,
-                willingness:willingness,
-                learning:learning,
-                feedback:feedback
-            });
+    userService.InsertReview = function (req, testmodel, Sequelize, res) {
+        console.log("welcome insert review");
+        var time = req.body.time;
+        var care = req.body.care;
+        var behaviour = req.body.behaviour;
+        var confidentiality = req.body.confidentiality;
+        var mentorship = req.body.mentorship;
+        var environment = req.body.environment;
+        var feelings = req.body.feelings;
+        var willingness = req.body.willingness;
+        var learning = req.body.learning;
+        var feedback = req.body.feedback;
+        return testmodel.create({
+            time: time,
+            care: care,
+            behaviour: behaviour,
+            confidentiality: confidentiality,
+            mentorship: mentorship,
+            environment: environment,
+            feelings: feelings,
+            willingness: willingness,
+            learning: learning,
+            feedback: feedback
+        });
 
-  };
-   userService.ListTrackerDates = function (req, testmodel, Sequelize, res) {
-            console.log("welcome to listing of tracker users");
-            
-            
-            testmodel.findAll({ where: {volunteer_id: 35} }).then(function (results) {
-                
-                res.send(results);
-           
-            });                       
-         
-        },
+    };
+    userService.ListTrackerDates = function (req, testmodel, Sequelize, res) {
+        console.log("welcome to listing of tracker users");
+
+
+        testmodel.findAll({ where: { volunteer_id: 35 } }).then(function (results) {
+
+            res.send(results);
+
+        });
+
+    },
         //retreive data from tracker model to generate graph
         userService.ViewReviewDetail = function (req, testmodel, Sequelize, res) {
             console.log("welcome to listing of review details of tracker  of users");
-            
-            
-            testmodel.findOne({ where: {date: req.body.date} }).then(function (results) {
+
+
+            testmodel.findOne({ where: { date: req.body.date } }).then(function (results) {
                 console.log(results);
                 res.send(results);
-           
-            });                       
-         
-        },
 
-     //insert data into tracker model   
-     userService.InsertTracker = function (req,testmodel,Sequelize,res) {
-      console.log("welcome insert tracker");
-       var date = req.body.date;
-       var location = req.body.location;
-       var agenda = req.body.agenda;
-       var outcome = req.body.outcome;
-       var keyAccomplishment = req.body.keyAccomplishment;
-       var keyLearning = req.body.keyLearning;
-       var newConnection = req.body.newConnection;
-       var menteeChallenges = req.body.menteeChallenges;
-       var mentorChallenges = req.body.mentorChallenges;
-       var volunteerChallenges = req.body.volunteerChallenges ;
-       var review= req.body.review;
-       var volunteer_id=req.body.volunteer_id;
-       console.log("hi");
-               return testmodel.create({
-                date: date,
-                location: location,
-                agenda:agenda,
-                outcome:outcome,
-                keyAccomplishment:keyAccomplishment,
-                keyLearning:keyLearning,
-                newConnection:newConnection,
-                menteeChallenges:menteeChallenges,
-                mentorChallenges:mentorChallenges,
-                volunteerChallenges:volunteerChallenges,
-                review:review,
-                volunteer_id:volunteer_id
             });
 
-  };
+        },
+
+        //insert data into tracker model   
+        userService.InsertTracker = function (req, testmodel, Sequelize, res) {
+            console.log("welcome insert tracker");
+            var date = req.body.date;
+            var location = req.body.location;
+            var agenda = req.body.agenda;
+            var outcome = req.body.outcome;
+            var keyAccomplishment = req.body.keyAccomplishment;
+            var keyLearning = req.body.keyLearning;
+            var newConnection = req.body.newConnection;
+            var menteeChallenges = req.body.menteeChallenges;
+            var mentorChallenges = req.body.mentorChallenges;
+            var volunteerChallenges = req.body.volunteerChallenges;
+            var review = req.body.review;
+            var volunteer_id = req.body.volunteer_id;
+            console.log("hi");
+            return testmodel.create({
+                date: date,
+                location: location,
+                agenda: agenda,
+                outcome: outcome,
+                keyAccomplishment: keyAccomplishment,
+                keyLearning: keyLearning,
+                newConnection: newConnection,
+                menteeChallenges: menteeChallenges,
+                mentorChallenges: mentorChallenges,
+                volunteerChallenges: volunteerChallenges,
+                review: review,
+                volunteer_id: volunteer_id
+            });
+
+        };
     //valiation of the login page using users table
     userService.validateUserDetial = function (req, testmodel, Sequelize, res) {
         console.log("welcome to Loginpage validation");
