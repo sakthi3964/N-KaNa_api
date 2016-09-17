@@ -39,7 +39,7 @@ module.exports = function (databaseBS, Sequelize) {
 
     // ListDates object to call service using functon call "ListTrackerDates"
     testController.ListDates = function (router) {
-        router.post('/trackerDates', function (req, res, next) {
+        router.get('/trackerDates', function (req, res, next) {
             console.log("hi tracker user");
             test2.ListTrackerDates(req, trackerModel, Sequelize, res);
         });
