@@ -1,7 +1,7 @@
 module.exports = function (testmodel) {
     var userService = {};
     //insert data from volunteer registration page to profile and profile info model
-    userService.InsertProfile = function (req, profilemodel, profileinfomodel, Sequelize, callBack) {
+    userService.InsertProfile = function (req, profilemodel, profileinfomodel, login, Sequelize, callBack) {
         console.log("Welcome");
         var role = req.body.role;
         var name = req.body.name;
@@ -24,6 +24,7 @@ module.exports = function (testmodel) {
         var phone = req.body.phone;
         var email_id = req.body.email_id;
         var password = req.body.password;
+        var work_type = req.body.work_type;
         var reference = req.body.reference;
         var commitment = req.body.commitment;
         var designation = req.body.designation;
@@ -59,6 +60,7 @@ module.exports = function (testmodel) {
             profileinfomodel.create({
                 profile_id: result.id,
                 course: course,
+                work_type: work_type,
                 department: department,
                 institution: institution,
                 reference: reference,
@@ -70,11 +72,19 @@ module.exports = function (testmodel) {
                 cv: cv,
                 photo: photo,
             }).then(function (results) {
-                console.log("suces inside");
+                login.create({
+                    email_id:email_id,
+                    role:role,
+                    password:password
+                }).then(function (ress){
+                    console.log("suces inside");
                 var res = {};
                 res.profile = results;
                 res.profileinfo = result;
+                res.login = ress;
                 callBack(res);
+                })
+                
             })
 
         }).catch(function (error) {
@@ -113,7 +123,7 @@ module.exports = function (testmodel) {
         console.log("welcome to listing of tracker users");
 
 
-        testmodel.findAll({ where: { volunteer_id: 35 } }).then(function (results) {
+        testmodel.findAll({ where: { volunteer_id: 101 } }).then(function (results) {
 
             res.send(results);
 

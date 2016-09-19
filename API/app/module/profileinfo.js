@@ -2,6 +2,13 @@
 module.exports = {
     UserDetial: function (sequelize, Sequelize, modelName) {
         var User = sequelize.define('profileinfos', {
+            
+            work_type: {
+                type: Sequelize.STRING,
+                // validate: {
+                //     notEmpty: true
+                // }
+            },
             course: {
                 type: Sequelize.STRING,
                 // validate: {
