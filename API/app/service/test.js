@@ -123,7 +123,7 @@ module.exports = function (testmodel) {
         console.log("welcome to listing of tracker users");
 
 
-        testmodel.findAll({ where: { volunteer_id: 101 } }).then(function (results) {
+        testmodel.findAll({ where: { volunteer_id: 35 } }).then(function (results) {
 
             res.send(results);
 

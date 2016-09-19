@@ -1,5 +1,5 @@
 module.exports = function (databaseBS, Sequelize) {
-    var login = require('../module/test').UserDetial(databaseBS, Sequelize, "logins");
+    var login = require('../module/login').UserDetial(databaseBS, Sequelize, "logins");
     var test = require('../service/test')(login);
     var childReviewModel = require('../module/childReview').ChildReviewDetial(databaseBS, Sequelize, "reviews");
     var test1 = require('../service/test')(childReviewModel);
@@ -53,7 +53,7 @@ module.exports = function (databaseBS, Sequelize) {
             console.log("Entering into validate user");
             test.validateUserDetial(
                 req,
-                regmodel,
+                login,
                 Sequelize,
                 res);
         });

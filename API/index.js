@@ -3,7 +3,7 @@ app = express();
 var cors = require('cors');
 var bodyParser = require('body-parser');
 var routers = require('./app/router/router');
-var modules = require('./app/module/test');
+//var modules = require('./app/module/test');
 var Sequelize = require('sequelize'),
    dbConfig = require('./app/config/config');
 app.use(cors());
