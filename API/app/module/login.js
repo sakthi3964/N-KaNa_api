@@ -8,6 +8,12 @@ module.exports = {
                     notEmpty: true
                 }
             },
+                        user_id: {
+                type: Sequelize.INTEGER,
+                validate: {
+                    notEmpty: true
+                }
+            },
             email_id: {
                 type: Sequelize.STRING,
                 validate: {
