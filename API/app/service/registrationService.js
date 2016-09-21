@@ -1,5 +1,39 @@
 module.exports = function (testmodel) {
     var registrationService = {};
+     //valiation of the login page using users table
+    registrationService.validateUserCredential = function (req, testmodel, Sequelize, res) {
+        console.log("welcome to Loginpage validation");
+        var email_id = req.body.email_id
+        var password = req.body.password;
+        if (!email_id) {
+            res.send("1");
+            return false;
+        }
+        else if (!password) {
+            res.send("2");
+            return false;
+        }
+        else {
+            return testmodel.findOne({
+                where: {
+                    email_id: email_id,
+                    password: password,
+                    status: 1,
+                    active: 1
+                }
+            }).then(function (result) {
+                if (result == null) {
+                    res.send("3");
+                    return false;
+                }
+                else {
+                    console.log(result.user_id);
+                    res.send(result);
+                }
+            });
+        }
+    };
+
     //insert data from volunteer registration page to profile and profile info model
     registrationService.InsertProfile = function (req, profilemodel, profileinfomodel, login, Sequelize, callBack) {
         console.log("Welcome");

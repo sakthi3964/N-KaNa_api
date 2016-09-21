@@ -36,8 +36,9 @@ module.exports = function (testmodel) {
     trackerService.ListTrackerDates = function (req, testmodel, Sequelize, res) {
         console.log("welcome to listing of tracker users");
 
-
-        testmodel.findAll({ where: { volunteer_id: 35 } }).then(function (results) {
+        var volunteer_id = req.body.volunteer_id;
+        console.log(req.body.volunteer_id);
+        testmodel.findAll({ where: { volunteer_id: volunteer_id } }).then(function (results) {
 
             res.send(results);
 
