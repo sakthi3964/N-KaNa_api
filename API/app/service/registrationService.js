@@ -1,6 +1,6 @@
 module.exports = function (testmodel) {
     var registrationService = {};
-     //valiation of the login page using users table
+    //valiation of the login page using users table
     registrationService.validateUserCredential = function (req, testmodel, Sequelize, res) {
         console.log("welcome to Loginpage validation");
         var email_id = req.body.email_id
@@ -107,18 +107,19 @@ module.exports = function (testmodel) {
                 photo: photo,
             }).then(function (results) {
                 login.create({
-                    email_id:email_id,
-                    role:role,
-                    password:password
-                }).then(function (ress){
+                    user_id: results.profile_id,
+                    email_id: email_id,
+                    role: role,
+                    password: password
+                }).then(function (ress) {
                     console.log("suces inside");
-                var res = {};
-                res.profile = results;
-                res.profileinfo = result;
-                res.login = ress;
-                callBack(res);
+                    var res = {};
+                    res.profile = results;
+                    res.profileinfo = result;
+                    res.login = ress;
+                    callBack(res);
                 })
-                
+
             })
 
         }).catch(function (error) {
@@ -126,5 +127,5 @@ module.exports = function (testmodel) {
         });
 
     };
-      return registrationService;
+    return registrationService;
 }

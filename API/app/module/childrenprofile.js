@@ -1,14 +1,6 @@
 module.exports = {
     ChildrenProfileDetial: function (sequelize, Sequelize, modelName) {
         var User = sequelize.define('childrenprofiles', {
-   
-         id: {
-                type: Sequelize.INTEGER,
-                primaryKey: true
-            },
-            children_id: {
-                type: Sequelize.INTEGER
-            },
             full_name: {
                 type: Sequelize.STRING
             },
@@ -19,12 +11,6 @@ module.exports = {
                 type: Sequelize.INTEGER
             },
              gender: {
-                type: Sequelize.STRING
-            },
-             mobile_no: {
-                type: Sequelize.INTEGER
-            },
-             email_id: {
                 type: Sequelize.STRING
             },
              center: {
@@ -47,12 +33,10 @@ module.exports = {
             },
             updated_at: {
                 type: Sequelize.DATE
-            }
-             
-
-
-                  
-             
+            },
+            role:{
+                type: Sequelize.STRING
+            }   
         });
         return User;
     }

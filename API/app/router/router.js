@@ -4,7 +4,7 @@ module.exports = function (databaseBS, Sequelize) {
     var registrationRouter = require('../controller/registrationController')(databaseBS, Sequelize);
     var profileRouter = require('../controller/profileController')(databaseBS,Sequelize);
     var childrenProfileRouter = require('../controller/childrenProfileController')(databaseBS,Sequelize);
-    
+    var loginactiveChangeRouter = require('../controller/loginController')(databaseBS,Sequelize);
     var ApiRouter = {};
     ApiRouter.apiRouters = function (router) {
 
@@ -14,9 +14,12 @@ module.exports = function (databaseBS, Sequelize) {
         router.post('/viewReviewDetail', trackerRouter.ReviewGraph);//graph generation
         router.post('/registration', registrationRouter.Registration);// insert data for registration
         router.post('/validateuser', registrationRouter.ValidateUser);//validate users at login
-        router.get('/viewvolunteer',profileRouter.viewVolunteer);//view the volunteer profile details
+        router.post('/viewvolunteer',profileRouter.viewVolunteer);//view the volunteer profile details
         router.post('/preassess',childrenProfileRouter.Preassess);
         router.post('/childrenregistration',childrenProfileRouter.childregistration);
+        router.get('/listofvolunteer',profileRouter.listofvolunteer);
+        router.post('/loginactivechange',loginactiveChangeRouter.loginactivechange);
     }
     return ApiRouter;
 }
+

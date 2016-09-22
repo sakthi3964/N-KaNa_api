@@ -39,7 +39,7 @@ module.exports = {
                 // },
 
             },
-           address_line1: {
+            address_line1: {
                 type: Sequelize.STRING,
                 // validate: {
                 //     notEmpty: true
@@ -107,19 +107,19 @@ module.exports = {
                 //     notEmpty: true
                 // }
             },
-            status: {
-                type: Sequelize.INTEGER,
-                // validate: {
-                //     //notEmpty: true
-                // }
-            },
-            active: {
-                type: Sequelize.INTEGER,
-                // validate: {
-                //     //notEmpty: true
-                // }
-            },
-            
+            // status: {
+            //     type: Sequelize.INTEGER,
+            //     // validate: {
+            //     //     //notEmpty: true
+            //     // }
+            // },
+            // active: {
+            //     type: Sequelize.INTEGER,
+            //     // validate: {
+            //     //     //notEmpty: true
+            //     // }
+            // },
+
 
         });
         return User;

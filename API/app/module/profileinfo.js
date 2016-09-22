@@ -83,14 +83,14 @@ module.exports = {
                 // validate: {
                 //     //notEmpty: true
                 // }
-            },
-        
-            active: {
-                type: Sequelize.INTEGER,
-                // validate: {
-                //     //notEmpty: true
-                // }
             }
+        
+            // active: {
+            //     type: Sequelize.INTEGER,
+            //     // validate: {
+            //     //     //notEmpty: true
+            //     // }
+            // }
 
         });
         return User;

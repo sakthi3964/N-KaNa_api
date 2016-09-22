@@ -17,9 +17,17 @@ module.exports = function (databaseBS, Sequelize) {
                 res.send(results);
             });
     };
+    profileController.listofvolunteer = function (req, res, next) {
+        console.log("hi listofvolunteer");
+        profileServiceObject.listofvolunteer(
+            req,
+            profile,
+            Sequelize,
+            res);
+    }
 
 
 
 
-return profileController;
+    return profileController;
 }

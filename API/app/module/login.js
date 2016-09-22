@@ -8,7 +8,7 @@ module.exports = {
                     notEmpty: true
                 }
             },
-                        user_id: {
+            user_id: {
                 type: Sequelize.INTEGER,
                 validate: {
                     notEmpty: true
