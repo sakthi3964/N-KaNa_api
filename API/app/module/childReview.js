@@ -2,43 +2,45 @@
 module.exports = {
     ChildReviewDetial: function (sequelize, Sequelize, modelName) {
         var User = sequelize.define('reviews', {
-           id:{
-               type:Sequelize.INTEGER,
-               primaryKey:true
-           },
-          
-            time:{
+            id: {
+                type: Sequelize.INTEGER,
+                primaryKey: true
+            },
+            children_id: {
+                type: Sequelize.INTEGER,
+            },
+            time: {
                 type: Sequelize.INTEGER
             },
-             care:{
+            care: {
                 type: Sequelize.INTEGER
             },
-             behaviour:{
+            behaviour: {
                 type: Sequelize.INTEGER
             },
-             confidentiality:{
+            confidentiality: {
                 type: Sequelize.INTEGER
             },
-             mentorship:{
+            mentorship: {
                 type: Sequelize.INTEGER
             },
-             environment:{
+            environment: {
                 type: Sequelize.INTEGER
             },
-             feelings:{
+            feelings: {
                 type: Sequelize.INTEGER
             },
-             willingness:{
+            willingness: {
                 type: Sequelize.INTEGER
             },
-             learning:{
+            learning: {
                 type: Sequelize.INTEGER
             },
-             feedback:{
+            feedback: {
                 type: Sequelize.INTEGER
             }
-            
-             
+
+
         });
         return User;
     }

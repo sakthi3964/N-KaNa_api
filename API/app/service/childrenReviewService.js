@@ -4,6 +4,7 @@ module.exports = function (testmodel) {
 
     ChildrenReviewService.insertChildrenReview = function (req, childrenReviewModel, Sequelize, res) {
         console.log("welcome insert review");
+        var children_id = req.body.id;
         var time = req.body.time;
         var care = req.body.care;
         var behaviour = req.body.behaviour;
@@ -15,6 +16,7 @@ module.exports = function (testmodel) {
         var learning = req.body.learning;
         var feedback = req.body.feedback;
         return childrenReviewModel.create({
+            children_id: children_id,
             time: time,
             care: care,
             behaviour: behaviour,
@@ -29,6 +31,6 @@ module.exports = function (testmodel) {
 
     };
 
-     return ChildrenReviewService;
+    return ChildrenReviewService;
 }
 

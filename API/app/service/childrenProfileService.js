@@ -13,7 +13,7 @@ module.exports = function (testmodel) {
 
         }, {
                 where: {
-                    ID: 1
+                    ID: 1004
                 }
             });
 
