@@ -33,7 +33,33 @@ module.exports = function (testmodel) {
             });
         }
     };
+    registrationService.viewDataToApprove = function (req, LoginModel, ProfileModel, ProfileInfoModel, Sequelize, res) {
+        console.log("welcome to serrvice too llist the voluunteerrs to approve");
+        LoginModel.belongsTo(ProfileModel,{foreignKey:'user_id'});
+     //   approveProfileInfoModel.belongsTo(approveProfileModel,{foreignKey:'profile_id'});
+        ProfileModel.belongsTo(ProfileInfoModel,{foreignKey:'id'});
+        LoginModel.findAll({
+            
+            where:{status:0
+                },
+            include:[
+                {
+                    model:ProfileModel,
+                    include:[
 
+                        {
+                            model:ProfileInfoModel
+                        }
+                    ]
+                }
+            ]
+        }).then(function (result){
+            res.send(result);
+        }); 
+
+
+
+    };
     //insert data from volunteer registration page to profile and profile info model
     registrationService.InsertProfile = function (req, profilemodel, profileinfomodel, login, Sequelize, callBack) {
         console.log("Welcome");

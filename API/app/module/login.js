@@ -16,10 +16,10 @@ module.exports = {
             },
             email_id: {
                 type: Sequelize.STRING,
-                validate: {
-                    isEmail: true
-                }
-            },
+            //     validate: {
+            //         isEmail: true
+            //     }
+             },
             password: {
                 type: Sequelize.STRING,
                 validate: {

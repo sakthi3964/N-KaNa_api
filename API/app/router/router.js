@@ -2,9 +2,10 @@ module.exports = function (databaseBS, Sequelize) {
     var trackerRouter = require('../controller/trackerController')(databaseBS, Sequelize);
     var childrenReviewRouter = require('../controller/childrenReviewController')(databaseBS, Sequelize);
     var registrationRouter = require('../controller/registrationController')(databaseBS, Sequelize);
-    var profileRouter = require('../controller/profileController')(databaseBS,Sequelize);
-    var childrenProfileRouter = require('../controller/childrenProfileController')(databaseBS,Sequelize);
-    var loginactiveChangeRouter = require('../controller/loginController')(databaseBS,Sequelize);
+    var profileRouter = require('../controller/profileController')(databaseBS, Sequelize);
+    var childrenProfileRouter = require('../controller/childrenProfileController')(databaseBS, Sequelize);
+    var connectionRouter = require('../controller/connectionController')(databaseBS, Sequelize);
+    var loginactiveChangeRouter = require('../controller/loginController')(databaseBS, Sequelize);
     var ApiRouter = {};
     ApiRouter.apiRouters = function (router) {
 
@@ -14,11 +15,15 @@ module.exports = function (databaseBS, Sequelize) {
         router.post('/viewReviewDetail', trackerRouter.ReviewGraph);//graph generation
         router.post('/registration', registrationRouter.Registration);// insert data for registration
         router.post('/validateuser', registrationRouter.ValidateUser);//validate users at login
-        router.post('/viewvolunteer',profileRouter.viewVolunteer);//view the volunteer profile details
-        router.post('/preassess',childrenProfileRouter.Preassess);
-        router.post('/childrenregistration',childrenProfileRouter.childregistration);
-        router.get('/listofvolunteer',profileRouter.listofvolunteer);
-        router.post('/loginactivechange',loginactiveChangeRouter.loginactivechange);
+        router.post('/viewvolunteer', profileRouter.viewVolunteer);//view the volunteer profile details
+        router.post('/preassess', childrenProfileRouter.Preassess);
+        router.post('/childrenregistration', childrenProfileRouter.childregistration);
+        router.get('/listofvolunteer', profileRouter.listofvolunteer);
+        router.get('/selectChild', childrenProfileRouter.SelectChild);
+        router.post('/viewchildrenownprofile', childrenProfileRouter.viewdata);
+        router.post('/insertConnectionRequest', connectionRouter.InsertRequest);
+        router.post('/loginactivechange', loginactiveChangeRouter.loginactivechange);
+        router.post('/approvevolunteer', registrationRouter.viewVolunteerToApprove);
     }
     return ApiRouter;
 }

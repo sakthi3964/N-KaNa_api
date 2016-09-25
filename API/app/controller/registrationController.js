@@ -16,6 +16,8 @@ module.exports = function (databaseBS, Sequelize) {
                         function (results) {
                                 res.send(results);
                         });
+
+
         };
 
         // ValidateUser object to call service using functon call "validateUserDetial"
@@ -31,7 +33,19 @@ module.exports = function (databaseBS, Sequelize) {
 
         registrationController.listofvolunteer = function (req, res, next) {
                 console.log("list of volunteer");
-                profileServiceObject.viewvolunteer(req, profile, Sequelize, res);
-        }
+                registrationServiceObject.viewvolunteer(req, profile, Sequelize, res);
+        };
+
+          registrationController.viewVolunteerToApprove = function (req, res, next) {
+        console.log(" view data to approve controller");
+        registrationServiceObject.viewDataToApprove(
+            req,
+            login,
+            profile,
+            profileinfo,
+            Sequelize,
+           res)
+    };
+
         return registrationController;
 }

@@ -4,6 +4,9 @@ module.exports = {
             full_name: {
                 type: Sequelize.STRING
             },
+            connection_status:{
+                type:Sequelize.STRING
+            },
              dob: {
                 type: Sequelize.STRING
             },
