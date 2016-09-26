@@ -3,7 +3,7 @@ module.exports = function (testmodel) {
     //valiation of the login page using users table
     registrationService.validateUserCredential = function (req, testmodel, Sequelize, res) {
         console.log("welcome to Loginpage validation");
-        var email_id = req.body.email_id
+        var email_id = req.body.email_id;
         var password = req.body.password;
         if (!email_id) {
             res.send("1");
@@ -35,31 +35,52 @@ module.exports = function (testmodel) {
     };
     registrationService.viewDataToApprove = function (req, LoginModel, ProfileModel, ProfileInfoModel, Sequelize, res) {
         console.log("welcome to serrvice too llist the voluunteerrs to approve");
-        LoginModel.belongsTo(ProfileModel,{foreignKey:'user_id'});
-     //   approveProfileInfoModel.belongsTo(approveProfileModel,{foreignKey:'profile_id'});
-        ProfileModel.belongsTo(ProfileInfoModel,{foreignKey:'id'});
+        LoginModel.belongsTo(ProfileModel, { foreignKey: 'user_id' });
+        //   approveProfileInfoModel.belongsTo(approveProfileModel,{foreignKey:'profile_id'});
+        ProfileModel.belongsTo(ProfileInfoModel, { foreignKey: 'id' });
         LoginModel.findAll({
-            
-            where:{status:0
-                },
-            include:[
+
+            where: {
+                status: 0,
+                $not: {
+                    role: "children"
+                }
+
+            },
+            include: [
                 {
-                    model:ProfileModel,
-                    include:[
+                    model: ProfileModel,
+                    include: [
 
                         {
-                            model:ProfileInfoModel
+                            model: ProfileInfoModel
                         }
                     ]
                 }
             ]
-        }).then(function (result){
+        }).then(function (result) {
             res.send(result);
-        }); 
+        });
+    };
 
+     registrationService.changeStatusService = function (req, testmodel, Sequelize, res) {
+        console.log("welcome change status api service ");
 
+        var id = req.body.id;
+        
+
+        testmodel.update({
+            status:1
+
+        }, {
+                where: {
+                    id: id
+                }
+            });
 
     };
+
+
     //insert data from volunteer registration page to profile and profile info model
     registrationService.InsertProfile = function (req, profilemodel, profileinfomodel, login, Sequelize, callBack) {
         console.log("Welcome");
@@ -116,7 +137,6 @@ module.exports = function (testmodel) {
         }).then(function (result) {
             console.log("sucses");
             console.log(result.id);
-            profileinfomodel.belongsTo(profilemodel, { foreignKey: 'profile_id' });
             profileinfomodel.create({
                 profile_id: result.id,
                 course: course,
@@ -153,5 +173,6 @@ module.exports = function (testmodel) {
         });
 
     };
+
     return registrationService;
 }

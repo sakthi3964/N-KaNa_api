@@ -23,7 +23,8 @@ module.exports = function (databaseBS, Sequelize) {
         router.post('/viewchildrenownprofile', childrenProfileRouter.viewdata);
         router.post('/insertConnectionRequest', connectionRouter.InsertRequest);
         router.post('/loginactivechange', loginactiveChangeRouter.loginactivechange);
-        router.post('/approvevolunteer', registrationRouter.viewVolunteerToApprove);
+        router.get('/approvevolunteer', registrationRouter.viewVolunteerToApprove);
+        router.post('/changestatus', registrationRouter.changeStatusController);
     }
     return ApiRouter;
 }

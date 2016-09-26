@@ -30,6 +30,15 @@ module.exports = function (databaseBS, Sequelize) {
                         res);
         };
 
+         registrationController.changeStatusController = function (req, res, next) {
+                console.log("change status value");
+                registrationServiceObject.changeStatusService(
+                        req,
+                        login,
+                        Sequelize,
+                        res);
+        };
+
 
         registrationController.listofvolunteer = function (req, res, next) {
                 console.log("list of volunteer");

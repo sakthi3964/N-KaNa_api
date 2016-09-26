@@ -8,6 +8,9 @@ module.exports = {
                     notEmpty: true
                 }
             },
+            status:{
+                type:Sequelize.INTEGER
+            },
             user_id: {
                 type: Sequelize.INTEGER,
                 validate: {
