@@ -1,9 +1,9 @@
 module.exports = function (testmodel) {
     var profileService = {};
 
-    profileService.viewvolunteer = function (req, profile, profileinfo, Sequelize, callBack) {
+    profileService.viewvolunteer = function (req, profile, profileinfo, Sequelize, res) {
         console.log("welcome to listing of tracker users");
-        var id = 101;
+        var id = 10001;
         // profile.findAll({
         //     where: { id: id}
         // }).then(function (results) {
@@ -32,7 +32,7 @@ module.exports = function (testmodel) {
                 }
             ]
         }).then(function (result) {
-            callBack(result);
+             res.send(result);
         });
 
     };

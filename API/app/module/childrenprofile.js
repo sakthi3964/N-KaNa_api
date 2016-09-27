@@ -39,6 +39,11 @@ module.exports = {
             },
             role:{
                 type: Sequelize.STRING
+            },
+            id:{
+                type:Sequelize.INTEGER,
+                primaryKey:true
+
             }   
         });
         return User;

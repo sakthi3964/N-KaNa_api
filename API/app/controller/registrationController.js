@@ -4,7 +4,6 @@ module.exports = function (databaseBS, Sequelize) {
         var profile = require('../module/profile').UserDetial(databaseBS, Sequelize, "profiles");
         var registrationServiceObject = require('../service/registrationService')(profileinfo);
         var registrationController = {};
-
         registrationController.Registration = function (req, res, next) {
                 console.log("Helo users");
                 registrationServiceObject.InsertProfile(
@@ -16,10 +15,8 @@ module.exports = function (databaseBS, Sequelize) {
                         function (results) {
                                 res.send(results);
                         });
-
-
+                        console.log("controller reggggggggggistration"+req.body.name);
         };
-
         // ValidateUser object to call service using functon call "validateUserDetial"
         registrationController.ValidateUser = function (req, res, next) {
                 console.log("Entering into validate user");
@@ -29,8 +26,7 @@ module.exports = function (databaseBS, Sequelize) {
                         Sequelize,
                         res);
         };
-
-         registrationController.changeStatusController = function (req, res, next) {
+        registrationController.changeStatusController = function (req, res, next) {
                 console.log("change status value");
                 registrationServiceObject.changeStatusService(
                         req,
@@ -38,23 +34,19 @@ module.exports = function (databaseBS, Sequelize) {
                         Sequelize,
                         res);
         };
-
-
         registrationController.listofvolunteer = function (req, res, next) {
                 console.log("list of volunteer");
                 registrationServiceObject.viewvolunteer(req, profile, Sequelize, res);
         };
-
-          registrationController.viewVolunteerToApprove = function (req, res, next) {
-        console.log(" view data to approve controller");
-        registrationServiceObject.viewDataToApprove(
-            req,
-            login,
-            profile,
-            profileinfo,
-            Sequelize,
-           res)
-    };
-
+        registrationController.viewVolunteerToApprove = function (req, res, next) {
+                console.log(" view data to approve controller");
+                registrationServiceObject.viewDataToApprove(
+                        req,
+                        login,
+                        profile,
+                        profileinfo,
+                        Sequelize,
+                        res)
+        };
         return registrationController;
 }

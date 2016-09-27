@@ -1,19 +1,22 @@
 module.exports = function (databaseBS, Sequelize) {
     var connectionModel = require('../module/connection').ConnectionDetial(databaseBS, Sequelize, "children_connections");
-    
+
     var connectionServiceObject = require('../service/connectionService')(connectionModel);
 
     var connectionController = {};
-        connectionController.InsertRequest = function (req, res, next) {
+    connectionController.InsertRequest = function (req, res, next) {
         console.log("controller");
+
         connectionServiceObject.insertConneection(
             req,
             connectionModel,
             Sequelize,
-           res)
+            res);
+             console.log("rollllllllllllllllllllllllllllllle"+req.body.role);
     };
+        
+       
 
 
-
-return connectionController;
+    return connectionController;
 }

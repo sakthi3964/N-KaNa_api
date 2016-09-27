@@ -8,6 +8,7 @@ module.exports = function (databaseBS, Sequelize) {
 
     childrenProfileController.Preassess = function (req, res, next) {
         console.log("hi preassess user");
+        
         childrenProfileServiceObject.InsertPreassess(req, childrenProfileModel, Sequelize, res);
     };
 

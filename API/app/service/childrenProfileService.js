@@ -1,5 +1,5 @@
 module.exports = function (testmodel, databaseBS, Sequelize) {
-       var childrenProfileModel = require('../module/childrenprofile').ChildrenProfileDetial(databaseBS, Sequelize, "childrenprofiles");
+      var childrenProfileModel = require('../module/childrenprofile').ChildrenProfileDetial(databaseBS, Sequelize, "childrenprofiles");
     var helperObject = require('../helper/custom')(databaseBS, Sequelize);
 
     var childrenProfileService = {};
@@ -8,15 +8,20 @@ module.exports = function (testmodel, databaseBS, Sequelize) {
         console.log("welcome preassess_data ");
 
         var preassess_data = req.body.pre;
+        var id=req.body.id;
+        console.log(preassess_data);
+       
         var time = req.body.time;
+         console.log(time);
 
         testmodel.update({
+            // full_name:"sakthimurugan",
             pre_assessment_data: preassess_data,
             updated_at: time
 
         }, {
                 where: {
-                    ID: 1004
+                    id: id
                 }
             });
 

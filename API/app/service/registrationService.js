@@ -63,14 +63,14 @@ module.exports = function (testmodel) {
         });
     };
 
-     registrationService.changeStatusService = function (req, testmodel, Sequelize, res) {
+    registrationService.changeStatusService = function (req, testmodel, Sequelize, res) {
         console.log("welcome change status api service ");
 
         var id = req.body.id;
-        
+
 
         testmodel.update({
-            status:1
+            status: 1
 
         }, {
                 where: {

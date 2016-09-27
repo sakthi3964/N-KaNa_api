@@ -12,10 +12,7 @@ module.exports = function (databaseBS, Sequelize) {
             profile,
             profileinfo,
             Sequelize,
-            function (results) {
-                console.log(results);
-                res.send(results);
-            });
+            res);
     };
     profileController.listofvolunteer = function (req, res, next) {
         console.log("hi listofvolunteer");
@@ -25,9 +22,5 @@ module.exports = function (databaseBS, Sequelize) {
             Sequelize,
             res);
     }
-
-
-
-
     return profileController;
 }
