@@ -22,7 +22,7 @@ module.exports = function (databaseBS, Sequelize) {
         router.get('/selectChild', childrenProfileRouter.SelectChild);
         router.post('/viewchildrenownprofile', childrenProfileRouter.viewdata);
         router.post('/insertConnectionRequest', connectionRouter.InsertRequest);
-        router.post('/loginactivechange', loginactiveChangeRouter.loginactivechange);
+        router.get('/loginactivechange', loginactiveChangeRouter.loginactivechange);
         router.get('/approvevolunteer', registrationRouter.viewVolunteerToApprove);
         router.post('/changestatus', registrationRouter.changeStatusController);
     }

@@ -37,7 +37,7 @@ module.exports = function (testmodel) {
         console.log("welcome to serrvice too llist the voluunteerrs to approve");
         LoginModel.belongsTo(ProfileModel, { foreignKey: 'user_id' });
         //   approveProfileInfoModel.belongsTo(approveProfileModel,{foreignKey:'profile_id'});
-        ProfileModel.belongsTo(ProfileInfoModel, { foreignKey: 'id' });
+        LoginModel.belongsTo(ProfileInfoModel, { foreignKey: 'user_id' });
         LoginModel.findAll({
 
             where: {
@@ -50,12 +50,16 @@ module.exports = function (testmodel) {
             include: [
                 {
                     model: ProfileModel,
-                    include: [
 
-                        {
-                            model: ProfileInfoModel
-                        }
-                    ]
+                    // include: [
+
+                    //     {
+                    //         model: ProfileInfoModel
+                    //     }
+                    // ]
+                },
+                {
+                    model: ProfileInfoModel
                 }
             ]
         }).then(function (result) {
@@ -150,9 +154,10 @@ module.exports = function (testmodel) {
                 area_of_expertise: area_of_expertise,
                 experience: experience,
                 cv: cv,
-                photo: photo,
+                photo: photo
             }).then(function (results) {
                 login.create({
+                    active: 1,
                     user_id: results.profile_id,
                     email_id: email_id,
                     role: role,

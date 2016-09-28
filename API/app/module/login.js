@@ -8,8 +8,8 @@ module.exports = {
                     notEmpty: true
                 }
             },
-            status:{
-                type:Sequelize.INTEGER
+            status: {
+                type: Sequelize.INTEGER
             },
             user_id: {
                 type: Sequelize.INTEGER,
@@ -19,16 +19,20 @@ module.exports = {
             },
             email_id: {
                 type: Sequelize.STRING,
-            //     validate: {
-            //         isEmail: true
-            //     }
-             },
+                //     validate: {
+                //         isEmail: true
+                //     }
+            },
             password: {
                 type: Sequelize.STRING,
                 validate: {
                     notEmpty: true
                 }
+            },
+            active: {
+                type: Sequelize.INTEGER
             }
+
 
         });
         return User;
