@@ -3,23 +3,7 @@ module.exports = function (testmodel) {
 
     profileService.viewvolunteer = function (req, profile, profileinfo, Sequelize, res) {
         console.log("welcome to listing of tracker users");
-        var id = 10001;
-        // profile.findAll({
-        //     where: { id: id}
-        // }).then(function (results) {
-        //     profileinfo.findAll({
-        //         where: { profile_id: id }
-        //     }).then(function (result) {
-        //         var res = {};
-        //         res.profile = results;
-        //         res.profileinfo = result;
-        //         console.log(res.profile);
-        //         callBack(res);
-        //     })
-        // }).catch(function (error) {
-        //     callBack(error);
-        // });
-
+        var id = req.body.id;
         profile.belongsTo(profileinfo, { foreignKey: 'id' });
         profile.findAll({
 
@@ -32,7 +16,9 @@ module.exports = function (testmodel) {
                 }
             ]
         }).then(function (result) {
-             res.send(result);
+            console.log("hellllllllllllooooooo" + result + "helllllllllllllllloooooooooo");
+
+            res.send(result);
         });
 
     };
@@ -40,6 +26,36 @@ module.exports = function (testmodel) {
         console.log("welcome to view Volunteer");
 
         var role = 'volunteer';
+        testmodel.findAll({ where: { role: role } }).then(function (results) {
+            res.send(results);
+        });
+
+    };
+    profileService.viewmentor = function (req, profile, profileinfo, Sequelize, res) {
+        console.log("welcome to listing of tracker users");
+        var id = req.body.id;
+        profile.belongsTo(profileinfo, { foreignKey: 'id' });
+        profile.findAll({
+
+            where: {
+                id: id
+            },
+            include: [
+                {
+                    model: profileinfo
+                }
+            ]
+        }).then(function (result) {
+            console.log("hellllllllllllooooooo" + result + "helllllllllllllllloooooooooo");
+            res.send(result);
+        });
+
+    };
+
+    profileService.listofmentor = function (req, testmodel, Sequelize, res) {
+        console.log("welcome to view Volunteer");
+
+        var role = 'mentor';
         testmodel.findAll({ where: { role: role } }).then(function (results) {
             res.send(results);
         });

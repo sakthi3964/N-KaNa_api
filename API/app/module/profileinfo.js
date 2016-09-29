@@ -16,7 +16,7 @@ module.exports = {
                 // }
             },
              profile_id:{
-                  type: Sequelize.STRING,
+                  type: Sequelize.STRING
              },
             department: {
                 type: Sequelize.STRING,

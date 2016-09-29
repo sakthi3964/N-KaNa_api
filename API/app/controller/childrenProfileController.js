@@ -33,5 +33,10 @@ module.exports = function (databaseBS, Sequelize) {
         childrenProfileServiceObject.viewSelectChild(req, childrenProfileModel, Sequelize, res);
     }
 
+    childrenProfileController.listchild = function (req, res, next) {
+        console.log("hi listchild ");
+        childrenProfileServiceObject.listchild(req, childrenProfileModel, Sequelize, res);
+    }
+
     return childrenProfileController;
 }

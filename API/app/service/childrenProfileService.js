@@ -15,7 +15,7 @@ module.exports = function (testmodel, databaseBS, Sequelize) {
         console.log(time);
 
         testmodel.update({
-            // full_name:"sakthimurugan",
+            status: 1,
             pre_assessment_data: preassess_data,
             updated_at: time
 
@@ -26,59 +26,13 @@ module.exports = function (testmodel, databaseBS, Sequelize) {
             });
 
     };
-
-    //children registration function
-
-    // childrenProfileService.childreg = function (req, testmodel, login, Sequelize, callBack) {
-    //     console.log("welcome children registration");
-    //     console.log(req.body);
-    //     var name = req.body.name;
-
-    //     var age = req.body.age;
-    //     var gender = req.body.gender;
-    //     var password = req.body.password;
-    //     var dob = req.body.dob;
-    //     var center = req.body.center;
-    //     var user_id = req.body.user_id;
-    //     console.log(req.body.user_id);
-    //     var role = req.body.role;
-
-    // testmodel.create({
-    //     full_name: name,
-    //     age: age,
-    //     gender: gender,
-    //     password: password,
-    //     dob: dob,
-    //     user_id: user_id,
-    //     role: role,
-    //     center: center
-    // }).then(function (result) {
-    //     login.create({
-    //         user_id: result.id,
-    //         email_id: user_id,
-    //         role: role,
-    //         password: password
-    //     }).then(function (results) {
-    //         var res = {};
-    //         res.childrenProfileModel = results;
-    //         res.login = result;
-    //         callBack(res);
-    //     })
-    // }).catch(function (error) {
-    //     callBack(error);
-    // });
-
-    // };
     childrenProfileService.childreg = function (req, testmodel, login, Sequelize, res) {
         console.log("welcome children registration");
 
         console.log(req.body);
         helperObject.validation(req, testmodel, Sequelize, function (result) {
             console.log(result);
-            // console.log("req    :::"+req.body);
-
             if (result.msg == '0') {
-                ///console.log("if successs  ::::::::::::")
                 var name = result.req.name;
                 var age = result.req.age;
                 var gender = result.req.gender;
@@ -87,20 +41,6 @@ module.exports = function (testmodel, databaseBS, Sequelize) {
                 var center = result.req.center;
                 var user_id = result.req.user_id;
                 var role = result.req.role;
-                // testmodel.create({
-                //     full_name: name,
-                //     age: age,
-                //     gender: gender,
-                //     password: password,
-                //     dob: dob,
-                //     user_id: user_id,
-                //     center: center
-
-                // }).then(function (results) {
-                //     console.log("success insertion");
-                //     res.send(results);
-                //    // console.log(results);
-                // });
                 testmodel.create({
                     full_name: name,
                     age: age,
@@ -109,10 +49,12 @@ module.exports = function (testmodel, databaseBS, Sequelize) {
                     dob: dob,
                     user_id: user_id,
                     role: role,
-                    center: center
+                    center: center,
+                    active_ind: 1
                 }).then(function (result) {
-                    console.log("fdssssssssssssssssssssssssssssssssssssssssssssssss"+result.id);
                     login.create({
+                        status: 1,
+                        active: 1,
                         user_id: result.id,
                         email_id: result.user_id,
                         role: role,
@@ -141,7 +83,15 @@ module.exports = function (testmodel, databaseBS, Sequelize) {
     };
 
 
+    childrenProfileService.listchild = function (req, testmodel, Sequelize, res) {
+        console.log("welcome to view Children");
+        testmodel.findAll({
 
+        }).then(function (results) {
+            res.send(results);
+        });
+
+    };
     childrenProfileService.viewSelectChild = function (req, testmodel, Sequelize, res) {
         console.log("welcome to view and select a child");
 

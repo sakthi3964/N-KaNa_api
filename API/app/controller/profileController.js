@@ -22,5 +22,23 @@ module.exports = function (databaseBS, Sequelize) {
             Sequelize,
             res);
     }
+      profileController.listofmentor = function (req, res, next) {
+        console.log("hi listof mentor");
+        profileServiceObject.listofmentor(
+            req,
+            profile,
+            Sequelize,
+            res);
+    }
+
+    profileController.viewmentor = function (req, res, next) {
+        console.log("View mentor profile");
+        profileServiceObject.viewmentor(
+            req,
+            profile,
+            profileinfo,
+            Sequelize,
+            res);
+    };
     return profileController;
 }

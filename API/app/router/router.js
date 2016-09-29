@@ -25,6 +25,9 @@ module.exports = function (databaseBS, Sequelize) {
         router.get('/loginactivechange', loginactiveChangeRouter.loginactivechange);
         router.get('/approvevolunteer', registrationRouter.viewVolunteerToApprove);
         router.post('/changestatus', registrationRouter.changeStatusController);
+        router.get('/listofmentor',profileRouter.listofmentor);
+        router.post('/viewmentor',profileRouter.viewmentor);
+        router.get('/listchild', childrenProfileRouter.listchild);
     }
     return ApiRouter;
 }

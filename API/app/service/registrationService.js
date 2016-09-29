@@ -170,9 +170,7 @@ module.exports = function (testmodel) {
                     res.login = ress;
                     callBack(res);
                 })
-
             })
-
         }).catch(function (error) {
             callBack(error);
         });
