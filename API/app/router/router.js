@@ -22,12 +22,16 @@ module.exports = function (databaseBS, Sequelize) {
         router.get('/selectChild', childrenProfileRouter.SelectChild);
         router.post('/viewchildrenownprofile', childrenProfileRouter.viewdata);
         router.post('/insertConnectionRequest', connectionRouter.InsertRequest);
-        router.get('/loginactivechange', loginactiveChangeRouter.loginactivechange);
-        router.get('/approvevolunteer', registrationRouter.viewVolunteerToApprove);
+        router.get('/loginactivechange', loginactiveChangeRouter.loginactivechange); // list details for login active change page
+        router.get('/approvevolunteer', registrationRouter.viewVolunteerToApprove); // 
         router.post('/changestatus', registrationRouter.changeStatusController);
-        router.get('/listofmentor',profileRouter.listofmentor);
-        router.post('/viewmentor',profileRouter.viewmentor);
+        router.get('/listofmentor', profileRouter.listofmentor);
+        router.post('/viewmentor', profileRouter.viewmentor);
         router.get('/listchild', childrenProfileRouter.listchild);
+        router.get('/volunteerhome', connectionRouter.volunteerhomeselectchild); //change display icon child for volunteer home page
+        router.post('/activechange', loginactiveChangeRouter.activechange); // update active value in login table
+        router.post('/viewchild', connectionRouter.viewchild); // view child details from volunteer and mentor profile
+        router.post('/viewchildvolunteer', connectionRouter.viewchildvolunteer); // view volunteer and  mentor details from child profile
     }
     return ApiRouter;
 }

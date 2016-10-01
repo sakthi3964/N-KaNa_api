@@ -15,5 +15,10 @@ module.exports = function (databaseBS, Sequelize) {
             Sequelize,
             res);
     };
+    loginController.activechange = function (req, res, next) {
+        console.log("hi preassess user");
+        loginactivechangeServiceObject.activechange(req, login, Sequelize, res);
+    };
+
     return loginController;
 }

@@ -176,6 +176,5 @@ module.exports = function (testmodel) {
         });
 
     };
-
     return registrationService;
 }

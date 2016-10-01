@@ -2,21 +2,6 @@ module.exports = function (testmodel) {
     var loginservice = {};
     //insert data into tracker model   
     loginservice.viewlogin = function (req, login, profile, childrenProfileModel, Sequelize, res) {
-        // console.log("welcome to listing of tracker users");
-        // var id = req.body.id;
-        // login.findAll({
-        // }).then(function (results) {
-        //     profile.findAll({
-        //     }).then(function (result) {
-        //         var res = {};
-        //         res.login = results;
-        //         res.profile = result;
-        //         console.log(res.profile);
-        //         callBack(res);
-        //     })
-        // }).catch(function (error) {
-        //     callBack(error);
-        // });
         login.belongsTo(profile, { foreignKey: 'user_id' });
         login.belongsTo(childrenProfileModel, { foreignKey: 'user_id' });
         login.findAll({
@@ -32,5 +17,25 @@ module.exports = function (testmodel) {
             res.send(result);
         });
     };
+    loginservice.activechange = function (req, login, Sequelize, res) {
+        console.log("welcome preassess_data ");
+        var id = req.body.id;
+        var active = req.body.active;
+        var time = req.body.time;
+        console.log(active);
+        login.update({
+            active: active,
+            updated_at: time
+
+        }, {
+                where: {
+                    user_id: id
+                }
+            }).then(function (result) {
+                res.send(result);
+            });
+
+    };
+
     return loginservice;
 }
