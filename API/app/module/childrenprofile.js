@@ -4,31 +4,31 @@ module.exports = {
             full_name: {
                 type: Sequelize.STRING
             },
-            connection_status:{
-                type:Sequelize.STRING
-            },
-             dob: {
-                type: Sequelize.STRING
-            },
-             age: {
+            connection_status: {
                 type: Sequelize.INTEGER
             },
-             gender: {
+            dob: {
                 type: Sequelize.STRING
             },
-             center: {
-                type: Sequelize.STRING
-            },
-             user_id: {
+            age: {
                 type: Sequelize.INTEGER
             },
-             password: {
+            gender: {
                 type: Sequelize.STRING
             },
-             status: {
+            center: {
+                type: Sequelize.STRING
+            },
+            user_id: {
                 type: Sequelize.INTEGER
             },
-             active_ind: {
+            password: {
+                type: Sequelize.STRING
+            },
+            status: {
+                type: Sequelize.INTEGER
+            },
+            active_ind: {
                 type: Sequelize.INTEGER
             },
             pre_assessment_data: {
@@ -37,7 +37,7 @@ module.exports = {
             updated_at: {
                 type: Sequelize.DATE
             },
-            role:{
+            role: {
                 type: Sequelize.STRING
             }
             // id:{

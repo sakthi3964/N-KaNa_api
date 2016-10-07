@@ -12,21 +12,44 @@ module.exports = function (databaseBS, Sequelize) {
         connectionServiceObject.insertConneection(
             req,
             connectionModel,
+            childrenProfileModel,
             Sequelize,
-            res);
+            function (results) {
+                res.send(results);
+            });
+    };
+    connectionController.InsertMentorRequest = function (req, res, next) {
+        connectionServiceObject.insertMentorConnection(
+            req,
+            connectionModel,
+            Sequelize,
+            function (results) {
+                res.send(results);
+            });
     };
     connectionController.volunteerhomeselectchild = function (req, res, next) {
         connectionServiceObject.volunteerhomeselectchildicon(
             req,
             connectionModel,
             Sequelize,
-            res);
+            function (results) {
+                res.send(results);
+            });
     };
     connectionController.viewchild = function (req, res, next) {
         connectionServiceObject.viewchild(
             req,
             connectionModel,
             childrenProfileModel,
+            Sequelize,
+            res);
+    };
+    connectionController.viewmentorprofile = function (req, res, next) {
+        connectionServiceObject.viewmentorprofile(
+            req,
+            connectionModel,
+            profile,
+            profileinfo,
             Sequelize,
             res);
     };

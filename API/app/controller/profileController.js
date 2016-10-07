@@ -27,6 +27,7 @@ module.exports = function (databaseBS, Sequelize) {
         profileServiceObject.listofmentor(
             req,
             profile,
+            profileinfo,
             Sequelize,
             res);
     }

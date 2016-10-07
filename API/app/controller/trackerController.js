@@ -1,12 +1,16 @@
 module.exports = function (databaseBS, Sequelize) {
     var trackerModel = require('../module/tracker').TrackerDetial(databaseBS, Sequelize, "trackers");
+    var connectionControllerModel=require('../module/connection').ConnectionDetial(databaseBS, Sequelize, "children_connections");
     var trackerServiceObject = require('../service/trackerService')(trackerModel);
 
     var trackerController = {};
          // Tracker object to call service using functon call "InsertTracker"
       trackerController.Tracker = function (req, res, next) {
             console.log("hi tracker user");
-            trackerServiceObject.InsertTracker(req, trackerModel, Sequelize, res);
+            trackerServiceObject.InsertTracker(req, trackerModel,connectionControllerModel, Sequelize, function(result){
+                console.log("my ressssssssssssssssts"+result);
+                res.send(result);
+            });
         };
 
         trackerController.ListDates = function (req, res, next) {

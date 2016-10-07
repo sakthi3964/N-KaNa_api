@@ -1,7 +1,7 @@
 module.exports = function (testmodel) {
     var trackerService = {};
     //insert data into tracker model   
-    trackerService.InsertTracker = function (req, testmodel, Sequelize, res) {
+    trackerService.InsertTracker = function (req, testmodel, connection, Sequelize, callBack) {
         console.log("welcome insert tracker");
         var date = req.body.date;
         var location = req.body.location;
@@ -16,20 +16,35 @@ module.exports = function (testmodel) {
         var review = req.body.review;
         var volunteer_id = req.body.volunteer_id;
         console.log("hi");
-        return testmodel.create({
-            date: date,
-            location: location,
-            agenda: agenda,
-            outcome: outcome,
-            keyAccomplishment: keyAccomplishment,
-            keyLearning: keyLearning,
-            newConnection: newConnection,
-            menteeChallenges: menteeChallenges,
-            mentorChallenges: mentorChallenges,
-            volunteerChallenges: volunteerChallenges,
-            review: review,
-            volunteer_id: volunteer_id
-        });
+        connection.findOne({
+            where: {
+                profile_id: volunteer_id
+            }
+        }).then(function (result) {
+            var child_id = result.children_id;
+            testmodel.create({
+                date: date,
+                location: location,
+                agenda: agenda,
+                outcome: outcome,
+                keyAccomplishment: keyAccomplishment,
+                keyLearning: keyLearning,
+                newConnection: newConnection,
+                menteeChallenges: menteeChallenges,
+                mentorChallenges: mentorChallenges,
+                volunteerChallenges: volunteerChallenges,
+                review: review,
+                volunteer_id: volunteer_id,
+                mentee_id:child_id
+            }).then(function(results)
+            {
+                callBack(results);
+            })
+
+        }).catch(function(error){
+                res.send(error);
+            });
+
 
     };
 

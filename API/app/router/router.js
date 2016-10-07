@@ -19,19 +19,25 @@ module.exports = function (databaseBS, Sequelize) {
         router.post('/preassess', childrenProfileRouter.Preassess);
         router.post('/childrenregistration', childrenProfileRouter.childregistration);
         router.get('/listofvolunteer', profileRouter.listofvolunteer);
-        router.get('/selectChild', childrenProfileRouter.SelectChild);
-        router.post('/viewchildrenownprofile', childrenProfileRouter.viewdata);
+        router.get('/selectChild', childrenProfileRouter.SelectChild);//display list registed children
+        router.post('/viewchildrenownprofile', childrenProfileRouter.viewdata);//children profile view via volunteerhome
         router.post('/insertConnectionRequest', connectionRouter.InsertRequest);
         router.get('/loginactivechange', loginactiveChangeRouter.loginactivechange); // list details for login active change page
         router.get('/approvevolunteer', registrationRouter.viewVolunteerToApprove); // 
         router.post('/changestatus', registrationRouter.changeStatusController);
-        router.get('/listofmentor', profileRouter.listofmentor);
-        router.post('/viewmentor', profileRouter.viewmentor);
+        router.get('/listofmentor', profileRouter.listofmentor);//display list of mentor for both admin side and vounteer side
+        router.post('/viewmentor', profileRouter.viewmentor);//Select paticular mentor for both admin and volunteer side
         router.get('/listchild', childrenProfileRouter.listchild);
-        router.get('/volunteerhome', connectionRouter.volunteerhomeselectchild); //change display icon child for volunteer home page
+        router.post('/volunteerhome', connectionRouter.volunteerhomeselectchild); //change display icon child for volunteer home page
         router.post('/activechange', loginactiveChangeRouter.activechange); // update active value in login table
         router.post('/viewchild', connectionRouter.viewchild); // view child details from volunteer and mentor profile
         router.post('/viewchildvolunteer', connectionRouter.viewchildvolunteer); // view volunteer and  mentor details from child profile
+        router.post('/viewmentorownprofile', childrenProfileRouter.viewdata);//children profile view via volunteerhome
+        router.post('/insertmentorConnectionRequest', connectionRouter.InsertMentorRequest);//used for mentor request in the database
+        router.post('/viewmentorprofile', connectionRouter.viewmentorprofile); // view mentor profile from volunteer and child profile    
+        router.post('/childrenhome', childrenProfileRouter.childrenhome);
+        
+        
     }
     return ApiRouter;
 }

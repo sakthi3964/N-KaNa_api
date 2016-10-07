@@ -77,12 +77,7 @@ module.exports = function (testmodel, databaseBS, Sequelize) {
             }
 
         })
-
-
-
     };
-
-
     childrenProfileService.listchild = function (req, testmodel, Sequelize, res) {
         console.log("welcome to view Children");
         testmodel.findAll({
@@ -110,11 +105,11 @@ module.exports = function (testmodel, databaseBS, Sequelize) {
 
 
     };
-    childrenProfileService.viewchildrendata = function (req, view, Sequelize, res) {
+    childrenProfileService.viewchildrendata = function (req, testmodel, Sequelize, res) {
         console.log("welcome to listing of tracker users");
         var id = req.body.id;
 
-        view.findOne({
+        testmodel.findOne({
             where: { id: id }
         }).then(function (result) {
             res.send(result);
@@ -123,8 +118,23 @@ module.exports = function (testmodel, databaseBS, Sequelize) {
         });
 
     };
+    childrenProfileService.childrenhome = function (req, testmodel, Sequelize, res) {
+        var id = req.body.id;
+        testmodel.findOne({
+            where: {
+                id: id
+            }
+        }).then(function (result) {
+            if (result.pre_assessment_data == "") {
+                res.send("0");
+            }
+            else {
+                res.send("1");
+            }
+            console.log(result);
+            //   console.log(result.full_name);
+        });
 
-
-
+    };
     return childrenProfileService;
 }
