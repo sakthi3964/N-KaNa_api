@@ -9,37 +9,18 @@ module.exports = {
             children_id: {
                 type: Sequelize.INTEGER,
             },
-            time: {
+            profile_id: {
+                 type: Sequelize.INTEGER,
+            },
+            review: {
                 type: Sequelize.INTEGER
             },
-            care: {
+            created_at: {
                 type: Sequelize.INTEGER
             },
-            behaviour: {
-                type: Sequelize.INTEGER
-            },
-            confidentiality: {
-                type: Sequelize.INTEGER
-            },
-            mentorship: {
-                type: Sequelize.INTEGER
-            },
-            environment: {
-                type: Sequelize.INTEGER
-            },
-            feelings: {
-                type: Sequelize.INTEGER
-            },
-            willingness: {
-                type: Sequelize.INTEGER
-            },
-            learning: {
-                type: Sequelize.INTEGER
-            },
-            feedback: {
+            updated_at: {
                 type: Sequelize.INTEGER
             }
-
 
         });
         return User;

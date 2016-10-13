@@ -9,6 +9,9 @@ module.exports = {
            date:{
                 type: Sequelize.INTEGER
             },
+            role:{
+                type: Sequelize.STRING
+            },
             location:{
                 type: Sequelize.STRING
             },
@@ -39,7 +42,7 @@ module.exports = {
              mentee_id:{
                 type: Sequelize.INTEGER
             },
-             volunteer_id:{
+             profile_id:{
                 type: Sequelize.INTEGER
             },
             review:{

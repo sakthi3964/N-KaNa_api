@@ -108,7 +108,7 @@ module.exports = function (testmodel) {
             res.send(result);
         });
     };
-    connectionService.viewmentorprofile = function (req, connectionModel, profile, profileinfo, Sequelize, res) {
+    connectionService.viewvolunteermentorprofile = function (req, connectionModel, profile, profileinfo, Sequelize, res) {
         var id = req.body.id;
         connectionModel.belongsTo(profile, { foreignKey: 'profile_id' });
         profile.belongsTo(profileinfo, { foreignKey: 'id' });
@@ -118,10 +118,18 @@ module.exports = function (testmodel) {
             }
         }).then(function (result) {
             console.log(result[0].children_id);
+            var role1= result[0].role;
+            if(role1 == "volunteer"){
+               var role = "mentor";
+            }
+            else{
+                var role = "volunteer";
+            }
+            console.log(role);
             connectionModel.findAll({
                 where: {
                     children_id: result[0].children_id,
-                    role: "mentor"
+                    role: role
                 },
                 include: [
                     {
@@ -168,5 +176,16 @@ module.exports = function (testmodel) {
             res.send(result);
         });
     };
+    connectionService.childvolunteermentor = function (req, testmodel, Sequelize, res) {
+        var children_id = req.body.id;
+        testmodel.findAll({
+            where: {
+                children_id: children_id,
+            }
+        }).then(function (results) {
+            console.log(results);
+          res.send(results);
+        })
+    }
     return connectionService;
 }

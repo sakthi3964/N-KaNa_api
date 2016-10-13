@@ -14,14 +14,18 @@ module.exports = function (testmodel) {
         var mentorChallenges = req.body.mentorChallenges;
         var volunteerChallenges = req.body.volunteerChallenges;
         var review = req.body.review;
-        var volunteer_id = req.body.volunteer_id;
+        var profile_id = req.body.id;
+        console.log("profile_id" + profile_id);
         console.log("hi");
         connection.findOne({
             where: {
-                profile_id: volunteer_id
+                profile_id: profile_id
             }
         }).then(function (result) {
+            console.log(result);
             var child_id = result.children_id;
+            var role = result.role;
+            console.log(role);
             testmodel.create({
                 date: date,
                 location: location,
@@ -34,16 +38,16 @@ module.exports = function (testmodel) {
                 mentorChallenges: mentorChallenges,
                 volunteerChallenges: volunteerChallenges,
                 review: review,
-                volunteer_id: volunteer_id,
-                mentee_id:child_id
-            }).then(function(results)
-            {
+                profile_id: profile_id,
+                mentee_id: child_id,
+                role: role
+            }).then(function (results) {
                 callBack(results);
             })
 
-        }).catch(function(error){
-                res.send(error);
-            });
+        }).catch(function (error) {
+            callBack(error);
+        });
 
 
     };
@@ -51,10 +55,10 @@ module.exports = function (testmodel) {
     trackerService.ListTrackerDates = function (req, testmodel, Sequelize, res) {
         console.log("welcome to listing of tracker users");
 
-        var volunteer_id = req.body.volunteer_id;
-        console.log(req.body.volunteer_id);
-        testmodel.findAll({ where: { volunteer_id: volunteer_id } }).then(function (results) {
-
+        var id = req.body.id;
+        console.log(";dfjlsk" + id);
+        testmodel.findAll({ where: {$or: [{ mentee_id: id }, { profile_id: id }] }}).then(function (results) {
+            console.log(results);
             res.send(results);
 
         });
@@ -62,6 +66,25 @@ module.exports = function (testmodel) {
     };
 
 
+    trackerService.ListTrackerDatesmentorid = function (req, testmodel, connectionControllerModel, Sequelize, res) {
+        var profile_id = req.body.mentor_id;
+        console.log("welcome to listing of tracker users");
+        connectionControllerModel.findOne({
+            where: {
+                profile_id: profile_id
+            }
+        }).then(function (results) {
+            var mentee_id = results.children_id;
+            console.log("hiiiiijlkjkl;;" + mentee_id);
+            testmodel.findAll({ where: { mentee_id: mentee_id } }).then(function (results) {
+                res.send(results);
+
+            });
+        })
+
+
+
+    };
     trackerService.reviewGraph = function (req, trackerModel, Sequelize, res) {
 
         console.log("welcome to listing of review details of tracker  of users");

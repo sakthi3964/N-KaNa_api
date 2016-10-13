@@ -44,8 +44,8 @@ module.exports = function (databaseBS, Sequelize) {
             Sequelize,
             res);
     };
-    connectionController.viewmentorprofile = function (req, res, next) {
-        connectionServiceObject.viewmentorprofile(
+    connectionController.viewvolunteermentorprofile = function (req, res, next) {
+        connectionServiceObject.viewvolunteermentorprofile(
             req,
             connectionModel,
             profile,
@@ -59,6 +59,15 @@ module.exports = function (databaseBS, Sequelize) {
             connectionModel,
             profile,
             profileinfo,
+            Sequelize,
+            res);
+    };
+      connectionController.childvolunteermentor = function (req, res, next) {
+        console.log("controller");
+
+        connectionServiceObject.childvolunteermentor(
+            req,
+            connectionModel,
             Sequelize,
             res);
     };

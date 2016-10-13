@@ -17,6 +17,11 @@ module.exports = function (databaseBS, Sequelize) {
             console.log("hi tracker user");
             trackerServiceObject.ListTrackerDates(req, trackerModel, Sequelize, res);
     }
+
+         trackerController.ListTrackerDatesmentorid = function (req, res, next) {
+            console.log("hi tracker user");
+            trackerServiceObject.ListTrackerDatesmentorid(req, trackerModel,connectionControllerModel, Sequelize, res);
+    }
     
      trackerController.ReviewGraph = function (req, res, next) {
             console.log("hi review of tracker user");

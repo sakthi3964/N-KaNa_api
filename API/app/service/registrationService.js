@@ -22,6 +22,7 @@ module.exports = function (testmodel) {
                     active: 1
                 }
             }).then(function (result) {
+                console.log("haiafhaiahai"+result);
                 if (result == null) {
                     res.send("3");
                     return false;

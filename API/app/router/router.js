@@ -10,6 +10,7 @@ module.exports = function (databaseBS, Sequelize) {
     ApiRouter.apiRouters = function (router) {
 
         router.post('/trackerDates', trackerRouter.ListDates);// list dates at the graph module
+        router.post('/trackerDatesMentor', trackerRouter.ListTrackerDatesmentorid);
         router.post('/tracker', trackerRouter.Tracker);// tracker form with the holistic indicators
         router.post('/review', childrenReviewRouter.ChildrenReview);// child review form
         router.post('/viewReviewDetail', trackerRouter.ReviewGraph);//graph generation
@@ -34,8 +35,10 @@ module.exports = function (databaseBS, Sequelize) {
         router.post('/viewchildvolunteer', connectionRouter.viewchildvolunteer); // view volunteer and  mentor details from child profile
         router.post('/viewmentorownprofile', childrenProfileRouter.viewdata);//children profile view via volunteerhome
         router.post('/insertmentorConnectionRequest', connectionRouter.InsertMentorRequest);//used for mentor request in the database
-        router.post('/viewmentorprofile', connectionRouter.viewmentorprofile); // view mentor profile from volunteer and child profile    
+        router.post('/viewvolunteermentorprofile', connectionRouter.viewvolunteermentorprofile); // view mentor profile from volunteer and child profile    
         router.post('/childrenhome', childrenProfileRouter.childrenhome);
+        router.post('/childvolunteermentorid', connectionRouter.childvolunteermentor);
+        router.post('/viewChildrenReview', childrenReviewRouter.viewChildrenReview);
         
         
     }
