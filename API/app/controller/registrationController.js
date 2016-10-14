@@ -15,7 +15,7 @@ module.exports = function (databaseBS, Sequelize) {
                         function (results) {
                                 res.send(results);
                         });
-                        console.log("controller reggggggggggistration"+req.body.name);
+                console.log("controller reggggggggggistration" + req.body.name);
         };
         // ValidateUser object to call service using functon call "validateUserDetial"
         registrationController.ValidateUser = function (req, res, next) {
@@ -46,7 +46,15 @@ module.exports = function (databaseBS, Sequelize) {
                         profile,
                         profileinfo,
                         Sequelize,
-                        res)
+                        res);
+        };
+        registrationController.addfiles = function (req, res, next) {
+                console.log(" fileupload");
+                registrationServiceObject.addfiles(
+                        req,
+                        profileinfo,
+                        Sequelize,
+                        res);
         };
         return registrationController;
 }

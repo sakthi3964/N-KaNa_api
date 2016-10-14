@@ -62,7 +62,7 @@ module.exports = function (databaseBS, Sequelize) {
             Sequelize,
             res);
     };
-      connectionController.childvolunteermentor = function (req, res, next) {
+    connectionController.childvolunteermentor = function (req, res, next) {
         console.log("controller");
 
         connectionServiceObject.childvolunteermentor(
@@ -72,5 +72,17 @@ module.exports = function (databaseBS, Sequelize) {
             res);
     };
 
+    connectionController.viewadmintracker = function (req, res, next) {
+        connectionServiceObject.viewadmintracker(
+            req,
+            connectionModel,
+            profile,
+            profileinfo,
+            childrenProfileModel,
+            Sequelize,
+            function (results) {
+                res.send(results);
+            });
+    };
     return connectionController;
 }

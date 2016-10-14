@@ -1,22 +1,23 @@
-{"name":"nkana",
-"version":"0.0.0",
-"description":"My Sister and My Brother ",
-"main":"index.js",
-"scripts": {
+{
+  "name": "nkana",
+  "version": "0.0.0",
+  "description": "My Sister and My Brother ",
+  "main": "index.js",
+  "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
-"keywords":[],
-"license":"MIT",
-"author":"TYCL&MUGHIL <admin@tycl.org.in> ()",
-"homepage":"https://github.com//nkana",
-"repository":{
-    "type":"git",
-    "url":"https://github.com//nkana"
-    },
-    "bugs":{
-        "url":"https://github.com//nkana/issues"
-        },
+  "keywords": [],
+  "license": "MIT",
+  "author": "TYCL&MUGHIL <admin@tycl.org.in> ()",
+  "homepage": "https://github.com//nkana",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com//nkana"
+  },
+  "bugs": {
+    "url": "https://github.com//nkana/issues"
+  },
   "dependencies": {
     "body-parser": "^1.15.2",
     "caminte": "^0.2.6",
@@ -27,6 +28,7 @@
     "express": "^4.14.0",
     "express-session": "^1.14.0",
     "express-validator": "^2.20.8",
+    "multer": "^1.2.0",
     "mysql": "^2.11.1",
     "mysql-orm": "0.0.8",
     "orm": "^3.1.0",
@@ -35,5 +37,4 @@
     "validator": "^5.5.0"
   },
   "devDependencies": {}
-  
 }

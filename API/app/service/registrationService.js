@@ -1,3 +1,4 @@
+var multer = require("multer");
 module.exports = function (testmodel) {
     var registrationService = {};
     //valiation of the login page using users table
@@ -22,7 +23,7 @@ module.exports = function (testmodel) {
                     active: 1
                 }
             }).then(function (result) {
-                console.log("haiafhaiahai"+result);
+                console.log("haiafhaiahai" + result);
                 if (result == null) {
                     res.send("3");
                     return false;
@@ -84,8 +85,6 @@ module.exports = function (testmodel) {
             });
 
     };
-
-
     //insert data from volunteer registration page to profile and profile info model
     registrationService.InsertProfile = function (req, profilemodel, profileinfomodel, login, Sequelize, callBack) {
         console.log("Welcome");
@@ -177,5 +176,31 @@ module.exports = function (testmodel) {
         });
 
     };
+    registrationService.addfiles = function (req, testmodel, Sequelize, res) {
+        var imgfilename = null;
+        var storage = multer.diskStorage({ //multers disk storage settings
+            destination: function (req, file, cb, res) {
+                cb(null, './uploads/')
+            },
+            filename: function (req, file, cb, res) {
+                var datetimestamp = Date.now();
+                imgfilename = file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1];
+                cb(null, imgfilename)
+                console.log("dsadasda" + imgfilename);
+            }
+        });
+        var upload = multer({ //multer settings
+            storage: storage
+        }).single('file');
+        upload(req, res, function (err) {
+            if (err) {
+                res.json({ error_code: 1, err_desc: err });
+                return;
+            }
+            // res.json({ error_code: 0, err_desc: imgfilename });
+            console.log(imgfilename);
+            res.send(imgfilename);
+        })
+    }
     return registrationService;
 }

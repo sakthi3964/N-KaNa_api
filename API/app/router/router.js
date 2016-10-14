@@ -39,7 +39,8 @@ module.exports = function (databaseBS, Sequelize) {
         router.post('/childrenhome', childrenProfileRouter.childrenhome);
         router.post('/childvolunteermentorid', connectionRouter.childvolunteermentor);
         router.post('/viewChildrenReview', childrenReviewRouter.viewChildrenReview);
-        
+        router.post('/addfiles', registrationRouter.addfiles);
+        router.get('/viewadmintracker', connectionRouter.viewadmintracker);
         
     }
     return ApiRouter;

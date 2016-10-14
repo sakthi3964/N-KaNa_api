@@ -187,5 +187,36 @@ module.exports = function (testmodel) {
           res.send(results);
         })
     }
+    connectionService.viewadmintracker = function (req, connectionModel, profile, profileinfo, childrenProfileModel, Sequelize, callBack) {
+
+        childrenProfileModel.hasMany(connectionModel, { foreignKey: 'children_id' });
+        connectionModel.belongsTo(profile, { foreignKey: 'profile_id' });
+        profile.belongsTo(profileinfo, { foreignKey: 'id' });
+        
+        // connectionModel.belongsTo(childrenProfileModel, { foreignKey: 'children_id' });
+        childrenProfileModel.findAll({
+            include: [
+                {
+                    model: connectionModel,
+                    where: {
+                        approve_status: 1,
+                        active_ind: 1
+                    },
+                    include: [
+                        {
+                            model: profile,
+                            include: [
+                                {
+                                    model: profileinfo
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }).then(function (result) {
+            callBack(result);
+        })
+    }
     return connectionService;
 }

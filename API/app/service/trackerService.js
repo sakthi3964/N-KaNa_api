@@ -81,9 +81,6 @@ module.exports = function (testmodel) {
 
             });
         })
-
-
-
     };
     trackerService.reviewGraph = function (req, trackerModel, Sequelize, res) {
 
