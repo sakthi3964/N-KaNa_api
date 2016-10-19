@@ -43,6 +43,7 @@ module.exports = function (databaseBS, Sequelize) {
         router.get('/viewadmintracker', connectionRouter.viewadmintracker);
         router.get('/connectionapproval', connectionRouter.connectionapproval);
         router.post('/changeapproval', connectionRouter.changeapproval);
+        router.post('/volunteerhomeviewmentor', connectionRouter.volunteerhomeviewmentor);
     }
     return ApiRouter;
 }

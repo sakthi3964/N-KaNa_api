@@ -104,5 +104,14 @@ module.exports = function (databaseBS, Sequelize) {
             Sequelize,
             res);
     };
+    connectionController.volunteerhomeviewmentor = function (req, res, next) {
+        connectionServiceObject.volunteerhomeviewmentor(
+            req,
+            connectionModel,
+            Sequelize,
+            function (results) {
+                res.send(results);
+            });
+    };
     return connectionController;
 }

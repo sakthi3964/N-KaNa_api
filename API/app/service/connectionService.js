@@ -274,5 +274,33 @@ module.exports = function (testmodel) {
             callBack(result);
         })
     }
+
+    connectionService.volunteerhomeviewmentor = function (req, testmodel, Sequelize, callBack) {
+        var id = req.body.id;
+        testmodel.findAll({
+            where: {
+                profile_id: id
+            }
+        }).then(function (result) {
+            console.log(result)
+            var id = result[0].children_id;
+            console.log(id);
+            testmodel.count({
+                where: {
+                    children_id: id,
+                    role: "mentor"
+                }
+            }).then(function (results) {
+                console.log(results);
+                if (results >= 1) {
+                    callBack("0");
+                }
+                else {
+                    callBack("1");
+                }
+            })
+        })
+
+    }
     return connectionService;
 }

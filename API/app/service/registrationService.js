@@ -215,10 +215,13 @@ module.exports = function (testmodel) {
                     // return;
                     console.log("not supportable format");
                 }
+
                 var datetimestamp = Date.now();
                 imgfilename[i] = file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1];
                 cb(null, imgfilename[i])
                 i = i + 1;
+
+
             }
         });
         var upload = multer({ //multer settings
@@ -229,10 +232,12 @@ module.exports = function (testmodel) {
                 res.json({ error_code: 1, err_desc: err });
                 return;
             }
-            else {
-                console.log(imgfilename);
-                res.send(imgfilename);
-            }
+            var data = {
+                "photo": imgfilename[0],
+                "cv": imgfilename[1]
+            };
+            console.log(data);
+            res.send(data);
         })
     }
     return registrationService;
