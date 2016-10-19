@@ -118,11 +118,11 @@ module.exports = function (testmodel) {
             }
         }).then(function (result) {
             console.log(result[0].children_id);
-            var role1= result[0].role;
-            if(role1 == "volunteer"){
-               var role = "mentor";
+            var role1 = result[0].role;
+            if (role1 == "volunteer") {
+                var role = "mentor";
             }
-            else{
+            else {
                 var role = "volunteer";
             }
             console.log(role);
@@ -184,15 +184,71 @@ module.exports = function (testmodel) {
             }
         }).then(function (results) {
             console.log(results);
-          res.send(results);
+            res.send(results);
         })
+    }
+    connectionService.connectionapproval = function (req, childrenProfileModel, connectionModel, profile, profileinfo, Sequelize, callBack) {
+        connectionModel.belongsTo(childrenProfileModel, { foreignKey: 'children_id' });
+        connectionModel.belongsTo(profile, { foreignKey: 'profile_id' });
+        profile.belongsTo(profileinfo, { foreignKey: 'id' });
+        connectionModel.findAll({
+            where: {
+                approve_status: 0,
+                flag: 0
+            },
+
+            include: [
+                {
+                    model: childrenProfileModel
+                },
+                {
+                    model: profile,
+                    include: [
+                        {
+                            model: profileinfo
+                        }
+                    ]
+                }
+            ]
+        }).then(function (results) {
+            callBack(results);
+        })
+    }
+
+    connectionService.changeapproval = function (req, connectionModel, Sequelize, res) {
+        var id = req.body.id;
+        var status = req.body.status;
+        if (status == "true") {
+            connectionModel.update({
+                approve_status: 1
+            },
+                {
+                    where: {
+                        id: id
+                    }
+                }).then(function (result) {
+                    res.send(result);
+                });
+        }
+        else {
+            connectionModel.update({
+                flag: 1
+            },
+                {
+                    where: {
+                        id: id
+                    }
+                }).then(function (result) {
+                    res.send(result);
+                })
+        }
     }
     connectionService.viewadmintracker = function (req, connectionModel, profile, profileinfo, childrenProfileModel, Sequelize, callBack) {
 
         childrenProfileModel.hasMany(connectionModel, { foreignKey: 'children_id' });
         connectionModel.belongsTo(profile, { foreignKey: 'profile_id' });
         profile.belongsTo(profileinfo, { foreignKey: 'id' });
-        
+
         // connectionModel.belongsTo(childrenProfileModel, { foreignKey: 'children_id' });
         childrenProfileModel.findAll({
             include: [

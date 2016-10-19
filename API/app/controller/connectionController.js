@@ -84,5 +84,25 @@ module.exports = function (databaseBS, Sequelize) {
                 res.send(results);
             });
     };
+    connectionController.connectionapproval = function (req, res, next) {
+        connectionServiceObject.connectionapproval(
+            req,
+            childrenProfileModel,
+            connectionModel,
+            profile,
+            profileinfo,
+            Sequelize,
+            function (results) {
+                res.send(results);
+            }
+        )
+    };
+    connectionController.changeapproval = function (req, res, next) {
+        connectionServiceObject.changeapproval(
+            req,
+            connectionModel,
+            Sequelize,
+            res);
+    };
     return connectionController;
 }
