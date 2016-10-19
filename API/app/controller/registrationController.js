@@ -49,7 +49,6 @@ module.exports = function (databaseBS, Sequelize) {
                         res);
         };
         registrationController.addfiles = function (req, res, next) {
-                console.log(" fileupload");
                 registrationServiceObject.addfiles(
                         req,
                         profileinfo,

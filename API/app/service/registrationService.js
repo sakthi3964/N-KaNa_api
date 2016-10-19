@@ -19,15 +19,18 @@ module.exports = function (testmodel) {
                 where: {
                     email_id: email_id,
                     password: password,
-                    status: 1,
+                    // status: 1,
                     active: 1
                 }
             }).then(function (result) {
-                console.log("haiafhaiahai" + result);
+                // console.log("haiafhaiahai" + result.status);
                 if (result == null) {
                     res.send("3");
                     return false;
                 }
+                // else if (result.status == 0){
+                //     res.send("4");
+                // }
                 else {
                     console.log(result.user_id);
                     res.send(result);
@@ -177,29 +180,59 @@ module.exports = function (testmodel) {
 
     };
     registrationService.addfiles = function (req, testmodel, Sequelize, res) {
-        var imgfilename = null;
+        var imgfilename = [];
+        var i = 0;
         var storage = multer.diskStorage({ //multers disk storage settings
             destination: function (req, file, cb, res) {
-                cb(null, './uploads/')
+                var fileformat = file.originalname.split('.')[file.originalname.split('.').length - 1]
+                if (req.body.role == "2") {
+                    if ((fileformat == "jpg") || (fileformat == "jpeg") || (fileformat == "JPG") || (fileformat == "JPEG")) {
+                        cb(null, './uploads/mentor/photo')
+                    }
+                    else if ((fileformat == "pdf") || (fileformat == "PDF")) {
+                        cb(null, './uploads/mentor/cv')
+                    }
+
+                }
+                else if (req.body.role == "1") {
+                    if ((fileformat == "jpg") || (fileformat == "jpeg") || (fileformat == "JPG") || (fileformat == "JPEG")) {
+                        cb(null, './uploads/volunteer/photo')
+                    }
+                    else if ((fileformat == "pdf") || (fileformat == "PDF")) {
+                        cb(null, './uploads/volunteer/cv')
+                    }
+                }
+                else if (req.body.role == "3") {
+                    if ((fileformat == "jpg") || (fileformat == "jpeg") || (fileformat == "JPG") || (fileformat == "JPEG")) {
+                        cb(null, './uploads/children/photo')
+                    }
+                }
+
             },
             filename: function (req, file, cb, res) {
+                if ((file.originalname.split('.')[file.originalname.split('.').length - 1]) != "jpg") {
+                    // res.json({ error_code: 1, err_desc: err });
+                    // return;
+                    console.log("not supportable format");
+                }
                 var datetimestamp = Date.now();
-                imgfilename = file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1];
-                cb(null, imgfilename)
-                console.log("dsadasda" + imgfilename);
+                imgfilename[i] = file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1];
+                cb(null, imgfilename[i])
+                i = i + 1;
             }
         });
         var upload = multer({ //multer settings
             storage: storage
-        }).single('file');
+        }).array('photo', 2);
         upload(req, res, function (err) {
             if (err) {
                 res.json({ error_code: 1, err_desc: err });
                 return;
             }
-            // res.json({ error_code: 0, err_desc: imgfilename });
-            console.log(imgfilename);
-            res.send(imgfilename);
+            else {
+                console.log(imgfilename);
+                res.send(imgfilename);
+            }
         })
     }
     return registrationService;
