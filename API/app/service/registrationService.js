@@ -90,10 +90,11 @@ module.exports = function (testmodel) {
     };
     //insert data from volunteer registration page to profile and profile info model
     registrationService.InsertProfile = function (req, profilemodel, profileinfomodel, login, Sequelize, callBack) {
-        console.log("Welcome");
+        console.log(req);
         var role = req.body.role;
         var name = req.body.name;
         var dob = req.body.dob;
+        console.log(dob);
         var age = req.body.age;
         var gender = req.body.gender;
         var course = req.body.course;
@@ -126,7 +127,7 @@ module.exports = function (testmodel) {
         profilemodel.create({
             role: role,
             name: name,
-            // dob: dob,
+            dob: dob,
             age: age,
             gender: gender,
             address_line1: address_line1,
@@ -185,7 +186,8 @@ module.exports = function (testmodel) {
         var storage = multer.diskStorage({ //multers disk storage settings
             destination: function (req, file, cb, res) {
                 var fileformat = file.originalname.split('.')[file.originalname.split('.').length - 1]
-                if (req.body.role == "2") {
+                console.log(fileformat);
+                if (req.body.role == "mentor") {
                     if ((fileformat == "jpg") || (fileformat == "jpeg") || (fileformat == "JPG") || (fileformat == "JPEG")) {
                         cb(null, './uploads/mentor/photo')
                     }
@@ -194,7 +196,7 @@ module.exports = function (testmodel) {
                     }
 
                 }
-                else if (req.body.role == "1") {
+                else if (req.body.role == "volunteer") {
                     if ((fileformat == "jpg") || (fileformat == "jpeg") || (fileformat == "JPG") || (fileformat == "JPEG")) {
                         cb(null, './uploads/volunteer/photo')
                     }
@@ -202,7 +204,7 @@ module.exports = function (testmodel) {
                         cb(null, './uploads/volunteer/cv')
                     }
                 }
-                else if (req.body.role == "3") {
+                else if (req.body.role == "children") {
                     if ((fileformat == "jpg") || (fileformat == "jpeg") || (fileformat == "JPG") || (fileformat == "JPEG")) {
                         cb(null, './uploads/children/photo')
                     }

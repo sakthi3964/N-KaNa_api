@@ -44,6 +44,8 @@ module.exports = function (databaseBS, Sequelize) {
         router.get('/connectionapproval', connectionRouter.connectionapproval);
         router.post('/changeapproval', connectionRouter.changeapproval);
         router.post('/volunteerhomeviewmentor', connectionRouter.volunteerhomeviewmentor);
+        router.post('/mentorgraphDates', trackerRouter.mentorgraphDates);
+        router.post('/adminmentorgraphDates', trackerRouter.adminmentorgraphDates);
     }
     return ApiRouter;
 }

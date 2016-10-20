@@ -18,13 +18,13 @@ module.exports = {
                 // }
             },
 
-            // dob: {
-            //     type: Sequelize.STRING,
-            //     // validate: {
-            //     //     notEmpty: true
-            //     // }
+            dob: {
+                type: Sequelize.STRING,
+                // validate: {
+                //     notEmpty: true
+                // }
 
-            // },
+            },
             age: {
                 type: Sequelize.INTEGER,
                 // validate: {

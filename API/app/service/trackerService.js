@@ -52,12 +52,19 @@ module.exports = function (testmodel) {
 
     };
 
-    trackerService.ListTrackerDates = function (req, testmodel, Sequelize, res) {
+  trackerService.ListTrackerDates = function (req, testmodel, Sequelize, res) {
         console.log("welcome to listing of tracker users");
 
         var id = req.body.id;
         console.log(";dfjlsk" + id);
-        testmodel.findAll({ where: {$or: [{ mentee_id: id }, { profile_id: id }] }}).then(function (results) {
+        testmodel.findAll({
+            where: {
+                $or: [{ mentee_id: id }, { profile_id: id }],
+                $not: {
+                    location: "Nil"
+                }
+            }
+        }).then(function (results) {
             console.log(results);
             res.send(results);
 
@@ -65,9 +72,39 @@ module.exports = function (testmodel) {
 
     };
 
+    trackerService.mentorgraphDates = function (req, testmodel, Sequelize, res) {
+        console.log("welcome to listing of tracker users");
 
+        var id = req.body.id;
+        console.log(";dfjlsk" + id);
+        testmodel.findAll({
+            where: {
+                profile_id: id,
+                role: "mentor"
+            }
+        }).then(function (results) {
+            console.log(results);
+            res.send(results);
+
+        });
+
+    };
+    trackerService.adminmentorgraphDates = function (req, testmodel, Sequelize, res) {
+        var mentee_id = req.body.id;
+        console.log(mentee_id)
+        testmodel.findAll({
+            where:{
+                mentee_id:mentee_id,
+                role: "mentor"
+            }
+        }).then(function (results){
+            res.send(results);
+        })
+        
+      }
     trackerService.ListTrackerDatesmentorid = function (req, testmodel, connectionControllerModel, Sequelize, res) {
-        var profile_id = req.body.mentor_id;
+        var profile_id = req.body.id;
+        console.log(profile_id);
         console.log("welcome to listing of tracker users");
         connectionControllerModel.findOne({
             where: {
@@ -75,8 +112,18 @@ module.exports = function (testmodel) {
             }
         }).then(function (results) {
             var mentee_id = results.children_id;
+            var role = results.role;
+            console.log("hhhlsdf;al;dsfkldlfskajls;djfkl;ds" + mentee_id);
             console.log("hiiiiijlkjkl;;" + mentee_id);
-            testmodel.findAll({ where: { mentee_id: mentee_id } }).then(function (results) {
+            testmodel.findAll({
+                where:
+                {
+                    mentee_id: mentee_id,
+                    $not: {
+                        role: role
+                    }
+                }
+            }).then(function (results) {
                 res.send(results);
 
             });
