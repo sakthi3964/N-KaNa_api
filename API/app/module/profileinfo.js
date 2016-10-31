@@ -2,7 +2,7 @@
 module.exports = {
     UserDetial: function (sequelize, Sequelize, modelName) {
         var User = sequelize.define('profileinfos', {
-            
+
             work_type: {
                 type: Sequelize.STRING,
                 // validate: {
@@ -15,9 +15,9 @@ module.exports = {
                 //     notEmpty: true
                 // }
             },
-             profile_id:{
-                  type: Sequelize.STRING
-             },
+            profile_id: {
+                type: Sequelize.STRING
+            },
             department: {
                 type: Sequelize.STRING,
                 // validate: {
@@ -77,20 +77,20 @@ module.exports = {
                 //    // notEmpty: true
                 // }
             },
-            
+
             photo: {
                 type: Sequelize.STRING,
                 // validate: {
                 //     //notEmpty: true
                 // }
+            },
+
+            connection_status: {
+                type: Sequelize.STRING,
+                // validate: {
+                //     //notEmpty: true
+                // }
             }
-        
-            // active: {
-            //     type: Sequelize.INTEGER,
-            //     // validate: {
-            //     //     //notEmpty: true
-            //     // }
-            // }
 
         });
         return User;

@@ -39,6 +39,9 @@ module.exports = {
             },
             role: {
                 type: Sequelize.STRING
+            },
+            photos: {
+                type: Sequelize.STRING
             }
             // id:{
             //     type:Sequelize.INTEGER,

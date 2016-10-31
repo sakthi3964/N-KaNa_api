@@ -22,11 +22,21 @@ module.exports = function (testmodel) {
         });
 
     };
-    profileService.listofvolunteer = function (req, testmodel, Sequelize, res) {
+    profileService.listofvolunteer = function (req, testmodel, profileinfo, Sequelize, res) {
         console.log("welcome to view Volunteer");
 
         var role = 'volunteer';
-        testmodel.findAll({ where: { role: role } }).then(function (results) {
+        testmodel.belongsTo(profileinfo, { foreignKey: 'id' });
+        testmodel.findAll({
+            where: {
+                role: role
+            },
+            include: [
+                {
+                    model: profileinfo
+                }
+            ]
+        }).then(function (results) {
             res.send(results);
         });
 
@@ -60,10 +70,11 @@ module.exports = function (testmodel) {
         testmodel.findAll({
             where: {
                 role: role
+
             },
             include: [
                 {
-                    model: profileinfo
+                    model: profileinfo,
                 }
             ]
         }).then(function (results) {

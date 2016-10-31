@@ -19,6 +19,7 @@ module.exports = function (databaseBS, Sequelize) {
         profileServiceObject.listofvolunteer(
             req,
             profile,
+            profileinfo,
             Sequelize,
             res);
     }

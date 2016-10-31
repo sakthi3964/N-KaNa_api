@@ -42,6 +42,13 @@ module.exports = function (databaseBS, Sequelize) {
         console.log("hi listchild ");
         childrenProfileServiceObject.listchild(req, childrenProfileModel, Sequelize, res);
     }
-
+    childrenProfileController.childphoto = function (req, res, next) {
+        console.log("hello");
+        childrenProfileServiceObject.childphoto(
+            req,
+            childrenProfileModel,
+            Sequelize,
+            res);
+    };
     return childrenProfileController;
 }

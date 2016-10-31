@@ -113,8 +113,6 @@ module.exports = function (testmodel) {
         }).then(function (results) {
             var mentee_id = results.children_id;
             var role = results.role;
-            console.log("hhhlsdf;al;dsfkldlfskajls;djfkl;ds" + mentee_id);
-            console.log("hiiiiijlkjkl;;" + mentee_id);
             testmodel.findAll({
                 where:
                 {

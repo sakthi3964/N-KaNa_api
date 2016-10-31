@@ -20,7 +20,7 @@ module.exports = function (testmodel) {
                     email_id: email_id,
                     password: password,
                     // status: 1,
-                    active: 1
+                    // active: 1
                 }
             }).then(function (result) {
                 // console.log("haiafhaiahai" + result.status);
@@ -157,6 +157,7 @@ module.exports = function (testmodel) {
                 organization: organization,
                 area_of_expertise: area_of_expertise,
                 experience: experience,
+                connection_status: 0,
                 cv: cv,
                 photo: photo
             }).then(function (results) {
@@ -235,8 +236,8 @@ module.exports = function (testmodel) {
                 return;
             }
             var data = {
-                "photo": imgfilename[0],
-                "cv": imgfilename[1]
+                "cv": imgfilename[0],
+                "photo": imgfilename[1]
             };
             console.log(data);
             res.send(data);

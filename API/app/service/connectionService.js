@@ -256,7 +256,7 @@ module.exports = function (testmodel) {
                     model: connectionModel,
                     where: {
                         approve_status: 1,
-                        active_ind: 1
+                        // active_ind: 1
                     },
                     include: [
                         {
@@ -282,23 +282,29 @@ module.exports = function (testmodel) {
                 profile_id: id
             }
         }).then(function (result) {
-            console.log(result)
-            var id = result[0].children_id;
-            console.log(id);
-            testmodel.count({
-                where: {
-                    children_id: id,
-                    role: "mentor"
-                }
-            }).then(function (results) {
-                console.log(results);
-                if (results >= 1) {
-                    callBack("0");
-                }
-                else {
-                    callBack("1");
-                }
-            })
+
+            if (result[0] == undefined) {
+                callBack("3");
+            }
+            else {
+                var id = result[0].children_id;
+                console.log("aaaaaaaaaaaaaaaaaaa" + id);
+                testmodel.count({
+                    where: {
+                        children_id: id,
+                        role: "mentor"
+                    }
+                }).then(function (results) {
+                    // console.log(results);
+                    if (results >= 1) {
+                        callBack("0");
+                    }
+                    else {
+                        callBack("1");
+                    }
+                })
+            }
+
         })
 
     }
