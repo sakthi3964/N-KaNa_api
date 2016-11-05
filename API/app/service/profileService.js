@@ -69,7 +69,8 @@ module.exports = function (testmodel) {
         testmodel.belongsTo(profileinfo, { foreignKey: 'id' });
         testmodel.findAll({
             where: {
-                role: role
+                role: role,
+                connection_status:0
 
             },
             include: [

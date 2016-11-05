@@ -215,8 +215,10 @@ module.exports = function (testmodel) {
         })
     }
 
-    connectionService.changeapproval = function (req, connectionModel, Sequelize, res) {
+    connectionService.changeapproval = function (req, connectionModel, profile, Sequelize, res) {
         var id = req.body.id;
+        var profile_id = req.body.profile_id;
+        console.log("hjjjjjjjjjjjjjjjjjjj" + profile_id);
         var status = req.body.status;
         if (status == "true") {
             connectionModel.update({
@@ -226,8 +228,20 @@ module.exports = function (testmodel) {
                     where: {
                         id: id
                     }
+
                 }).then(function (result) {
-                    res.send(result);
+                    // console.log("sdddddddddddddddddddddddddddddddddddddddddddddddddddddddddz" + result);
+                    profile.update({
+                        connection_status: 1,
+                    },
+                        {
+                            where: {
+                                id: profile_id
+                            }
+                        }).then(function (results) {
+
+                            res.send(results);
+                        });
                 });
         }
         else {

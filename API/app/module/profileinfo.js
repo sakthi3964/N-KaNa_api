@@ -83,13 +83,6 @@ module.exports = {
                 // validate: {
                 //     //notEmpty: true
                 // }
-            },
-
-            connection_status: {
-                type: Sequelize.STRING,
-                // validate: {
-                //     //notEmpty: true
-                // }
             }
 
         });

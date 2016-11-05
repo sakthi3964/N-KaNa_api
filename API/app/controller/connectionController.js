@@ -101,6 +101,7 @@ module.exports = function (databaseBS, Sequelize) {
         connectionServiceObject.changeapproval(
             req,
             connectionModel,
+            profile,
             Sequelize,
             res);
     };

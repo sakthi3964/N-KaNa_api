@@ -119,9 +119,13 @@ module.exports = {
             //     //     //notEmpty: true
             //     // }
             // },
-
-
+            connection_status: {
+                type: Sequelize.INTEGER,
+                // validate: {
+                //     //notEmpty: true
+                // }
+            }
         });
-        return User;
-    }
+    return User;
+}
 }
