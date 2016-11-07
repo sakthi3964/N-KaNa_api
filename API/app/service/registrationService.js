@@ -90,11 +90,9 @@ module.exports = function (testmodel) {
     };
     //insert data from volunteer registration page to profile and profile info model
     registrationService.InsertProfile = function (req, profilemodel, profileinfomodel, login, Sequelize, callBack) {
-        console.log(req);
         var role = req.body.role;
         var name = req.body.name;
         var dob = req.body.dob;
-        console.log(dob);
         var age = req.body.age;
         var gender = req.body.gender;
         var course = req.body.course;
@@ -144,7 +142,6 @@ module.exports = function (testmodel) {
 
         }).then(function (result) {
             console.log("sucses");
-            console.log(result.id);
             profileinfomodel.create({
                 profile_id: result.id,
                 course: course,
@@ -173,6 +170,37 @@ module.exports = function (testmodel) {
                     res.profile = results;
                     res.profileinfo = result;
                     res.login = ress;
+                    var nodemailer = require('nodemailer');
+                    var smtpTransport = require('nodemailer-smtp-transport');
+
+                    var transporter = nodemailer.createTransport('smtps://sakthisakthimurugan29@gmail.com:tyclmughilsummercamp');
+
+                    // var transporter = nodemailer.createTransport(smtpTransport({
+                    //     host: 'localhost',
+                    //     port: 3406,
+                    //     auth: {
+                    //         user: 'sahsakthi@yahoo.com',
+                    //         pass: 'tyclmughil2016'
+                    //     }
+                    // }));
+
+
+                    // setup e-mail data with unicode symbols 
+                    var mailOptions = {
+                        from: '"Sakthi" <sahsakthi@yahoo.com>', // sender address 
+                        to: 'sakthisakthimurugan29@gmail.com', // list of receivers 
+                        subject: 'Successful Registration ✔', // Subject line 
+                        text: 'Hello world 🐴', // plaintext body 
+                        html: '<b>hai🐴</b>' // html body 
+                    };
+
+                    // send mail with defined transport object 
+                    transporter.sendMail(mailOptions, function (error, info) {
+                        if (error) {
+                            return console.log(error);
+                        }
+                        console.log('Message sent: ' + info.response);
+                    })
                     callBack(res);
                 })
             })

@@ -31,10 +31,13 @@
     "multer": "^1.2.0",
     "mysql": "^2.11.1",
     "mysql-orm": "0.0.8",
+    "nodemailer": "^2.6.4",
+    "nodemailer-smtp-transport": "^2.7.2",
     "orm": "^3.1.0",
     "sequelize": "^3.23.6",
     "sequelize-cli": "^2.4.0",
-    "validator": "^5.5.0"
+    "validator": "^5.5.0",
+    "xoauth2": "^1.2.0"
   },
   "devDependencies": {}
 }
