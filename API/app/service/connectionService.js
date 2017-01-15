@@ -117,41 +117,46 @@ module.exports = function (testmodel) {
                 profile_id: id
             }
         }).then(function (result) {
-            console.log(result[0].children_id);
-            var role1 = result[0].role;
-            if (role1 == "volunteer") {
-                var role = "mentor";
+            // console.log("sdffffffffffffffffffffffffffffffffffffffffffffffffffff"+result[0].children_id);
+            if ((result[0] != null) || (result== null)) {
+                var role1 = result[0].role;
+                if (role1 == "volunteer") {
+                    var role = "mentor";
+                }
+                else {
+                    var role = "volunteer";
+                }
+                connectionModel.findAll({
+                    where: {
+                        children_id: result[0].children_id,
+                        role: role
+                    },
+                    include: [
+                        {
+                            model: profile,
+
+                            include: [
+                                {
+                                    model: profileinfo
+                                },
+
+                            ]
+                        },
+
+                    ]
+                }).then(function (results) {
+                    res.send(results);
+                })
             }
             else {
-                var role = "volunteer";
+                res.send("Data Not Found");
             }
-            console.log(role);
-            connectionModel.findAll({
-                where: {
-                    children_id: result[0].children_id,
-                    role: role
-                },
-                include: [
-                    {
-                        model: profile,
-
-                        include: [
-                            {
-                                model: profileinfo
-                            },
-
-                        ]
-                    },
-
-                ]
-            }).then(function (results) {
-                res.send(results);
-            })
         });
     };
 
     connectionService.viewchildvolunteer = function (req, connectionModel, profile, profileinfo, Sequelize, res) {
         var id = req.body.id;
+        console.log("sdfl;sl;dfjkl;sdfkj"+id);
         connectionModel.belongsTo(profile, { foreignKey: 'profile_id' });
         profile.belongsTo(profileinfo, { foreignKey: 'id' });
         connectionModel.findAll({
@@ -218,9 +223,10 @@ module.exports = function (testmodel) {
     connectionService.changeapproval = function (req, connectionModel, profile, Sequelize, res) {
         var id = req.body.id;
         var profile_id = req.body.profile_id;
+        console.log("fdssjl;akkkkkkkkkfjlkdfdslkjsdf;lfkjdfdkj"+req.body.status);
         console.log("hjjjjjjjjjjjjjjjjjjj" + profile_id);
         var status = req.body.status;
-        if (status == "true") {
+        if (status == true) {
             connectionModel.update({
                 approve_status: 1
             },

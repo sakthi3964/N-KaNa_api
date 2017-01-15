@@ -1,4 +1,5 @@
 var multer = require("multer");
+var md5 = require('md5');
 module.exports = function (testmodel) {
     var registrationService = {};
     //valiation of the login page using users table
@@ -6,6 +7,7 @@ module.exports = function (testmodel) {
         console.log("welcome to Loginpage validation");
         var email_id = req.body.email_id;
         var password = req.body.password;
+        var hashed_password = md5(password);
         if (!email_id) {
             res.send("1");
             return false;
@@ -32,7 +34,6 @@ module.exports = function (testmodel) {
                 //     res.send("4");
                 // }
                 else {
-                    console.log(result.user_id);
                     res.send(result);
                 }
             });
@@ -72,12 +73,12 @@ module.exports = function (testmodel) {
         });
     };
 
-    registrationService.changeStatusService = function (req, testmodel, Sequelize, res) {
+    registrationService.changeStatusService = function (req, profile, testmodel, Sequelize, res) {
         console.log("welcome change status api service ");
 
         var id = req.body.id;
-
-
+        var profileId = req.body.profileId;
+        console.log(profileId);
         testmodel.update({
             status: 1
 
@@ -85,6 +86,22 @@ module.exports = function (testmodel) {
                 where: {
                     id: id
                 }
+            }).then(function (result) {
+                console.log("sivasankari"+id);
+                    profile.update({
+
+                        approvedstatus: 1
+                    },
+                    {
+                        where:{
+                            id:profileId
+                        }
+                    })
+                
+
+            }).then(function (results) {
+
+                res.send("1");
             });
 
     };
@@ -173,7 +190,7 @@ module.exports = function (testmodel) {
                     var nodemailer = require('nodemailer');
                     var smtpTransport = require('nodemailer-smtp-transport');
 
-                    var transporter = nodemailer.createTransport('smtps://sakthisakthimurugan29@gmail.com:tyclmughilsummercamp');
+                    var transporter = nodemailer.createTransport('smtps://sakthisakthimurugan29%40gmail.com:tyclmughilsummercamp@smtp.gmail.com');
 
                     // var transporter = nodemailer.createTransport(smtpTransport({
                     //     host: 'localhost',
@@ -187,8 +204,8 @@ module.exports = function (testmodel) {
 
                     // setup e-mail data with unicode symbols 
                     var mailOptions = {
-                        from: '"Sakthi" <sahsakthi@yahoo.com>', // sender address 
-                        to: 'sakthisakthimurugan29@gmail.com', // list of receivers 
+                        from: '"Sakthi" <sakthisakthimurugan29@gmail.com>', // sender address 
+                        to: 'sakthi3964@gmail.com', // list of receivers 
                         subject: 'Successful Registration ✔', // Subject line 
                         text: 'Hello world 🐴', // plaintext body 
                         html: '<b>hai🐴</b>' // html body 
@@ -207,7 +224,6 @@ module.exports = function (testmodel) {
         }).catch(function (error) {
             callBack(error);
         });
-
     };
     registrationService.addfiles = function (req, testmodel, Sequelize, res) {
         var imgfilename = [];

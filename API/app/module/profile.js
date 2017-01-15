@@ -124,8 +124,14 @@ module.exports = {
                 // validate: {
                 //     //notEmpty: true
                 // }
+            },
+            approvedstatus: {
+                type: Sequelize.INTEGER,
+                // validate: {
+                //     //notEmpty: true
+                // }
             }
         });
-    return User;
-}
+        return User;
+    }
 }

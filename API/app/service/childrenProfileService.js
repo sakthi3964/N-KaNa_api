@@ -52,7 +52,7 @@ module.exports = function (testmodel, databaseBS, Sequelize) {
                     user_id: user_id,
                     role: role,
                     center: center,
-                    photos:photos,
+                    photos: photos,
                     active_ind: 1
                 }).then(function (result) {
                     login.create({

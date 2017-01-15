@@ -111,6 +111,7 @@ module.exports = function (testmodel) {
                 profile_id: profile_id
             }
         }).then(function (results) {
+            console.log(results);
             var mentee_id = results.children_id;
             var role = results.role;
             testmodel.findAll({

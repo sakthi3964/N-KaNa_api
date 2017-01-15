@@ -47,6 +47,8 @@ module.exports = function (databaseBS, Sequelize) {
         router.post('/volunteerhomeviewmentor', connectionRouter.volunteerhomeviewmentor);
         router.post('/mentorgraphDates', trackerRouter.mentorgraphDates);
         router.post('/adminmentorgraphDates', trackerRouter.adminmentorgraphDates);
+        router.post('/editreturn', profileRouter.editreturn);
+        router.post('/editupdate', profileRouter.editupdate);
     }
     return ApiRouter;
 }

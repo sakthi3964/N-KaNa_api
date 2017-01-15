@@ -2,7 +2,7 @@ module.exports = function (databaseBS, Sequelize) {
     var profileinfo = require('../module/profileinfo').UserDetial(databaseBS, Sequelize, "profileinfos");
     var profile = require('../module/profile').UserDetial(databaseBS, Sequelize, "profiles");
     var profileServiceObject = require('../service/profileService')(profileinfo);
-
+    var login = require('../module/login').UserDetial(databaseBS, Sequelize, "logins");
     var profileController = {};
 
     profileController.viewVolunteer = function (req, res, next) {
@@ -41,6 +41,29 @@ module.exports = function (databaseBS, Sequelize) {
             profileinfo,
             Sequelize,
             res);
+    };
+
+     profileController.editreturn = function (req, res, next) {
+        // console.log("hi listofvolunteer");
+        profileServiceObject.editreturn(
+            req,
+            profile,
+            profileinfo,
+            Sequelize,
+            res);
+    };
+
+    profileController.editupdate = function (req, res, next) {
+        // console.log("hi listofvolunteer");
+        profileServiceObject.editupdate(
+            req,
+            profile,
+            profileinfo,
+            login,
+            Sequelize,
+            function (results) {
+                res.send(results);
+            });
     };
     return profileController;
 }
