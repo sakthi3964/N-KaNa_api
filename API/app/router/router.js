@@ -8,7 +8,9 @@ module.exports = function (databaseBS, Sequelize) {
     var loginactiveChangeRouter = require('../controller/loginController')(databaseBS, Sequelize);
     var ApiRouter = {};
     ApiRouter.apiRouters = function (router) {
-
+        router.post('/childreviewcheck', childrenReviewRouter.childreviewcheck);// to check review is filled for more than 3 months     
+        router.post('/childReviewDates', childrenReviewRouter.childReviewDates);// to fetch dates for filled child review
+        router.post('/childReviewDatesMentor', childrenReviewRouter.childReviewDatesMentor);  // to fetch dates for mentor
         router.post('/trackerDates', trackerRouter.ListDates);// list dates at the graph module
         router.post('/trackerDatesMentor', trackerRouter.ListTrackerDatesmentorid);
         router.post('/tracker', trackerRouter.Tracker);// tracker form with the holistic indicators

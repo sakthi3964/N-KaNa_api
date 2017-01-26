@@ -31,6 +31,9 @@ module.exports = {
             },
             active: {
                 type: Sequelize.INTEGER
+            },
+            updated_at:{
+                type:Sequelize.STRING
             }
 
 

@@ -22,10 +22,10 @@ module.exports = function (testmodel) {
         var id = req.body.id;
         var active = req.body.active;
         var time = req.body.time;
-        console.log(active);
+       // console.log(time);
         login.update({
             active: active,
-            updated_at: time
+            updated_at:time
 
         }, {
                 where: {
