@@ -17,6 +17,17 @@ module.exports = function (testmodel) {
             res.send(result);
         });
     };
+
+    loginservice.viewlogindetails = function (req, login, Sequelize, res) {
+        var user_id= req.body.id;
+        login.findAll({
+           where: {
+               user_id:user_id
+           }
+        }).then(function (result) {
+            res.send(result);
+        });
+    };
     loginservice.activechange = function (req, login, Sequelize, res) {
         console.log("welcome preassess_data ");
         var id = req.body.id;

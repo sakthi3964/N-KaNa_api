@@ -6,6 +6,18 @@ module.exports = function (databaseBS, Sequelize) {
     var connectionServiceObject = require('../service/connectionService')(connectionModel);
 
     var connectionController = {};
+     connectionController.deniedvolunteernextchild = function (req, res, next) {
+        console.log("controller");
+
+        connectionServiceObject.deniedvolunteernextchild(
+            req,
+            connectionModel,
+            childrenProfileModel,
+            Sequelize,
+            function (results) {
+                res.send(results);
+            });
+    };
     connectionController.InsertRequest = function (req, res, next) {
         console.log("controller");
 
@@ -18,6 +30,14 @@ module.exports = function (databaseBS, Sequelize) {
                 res.send(results);
             });
     };
+     connectionController.denydetails = function (req, res, next) {
+        connectionServiceObject.denydetails(
+            req,
+            connectionModel,
+            Sequelize,
+            res
+        )};
+        
     connectionController.InsertMentorRequest = function (req, res, next) {
         connectionServiceObject.insertMentorConnection(
             req,
@@ -96,6 +116,14 @@ module.exports = function (databaseBS, Sequelize) {
                 res.send(results);
             }
         )
+    };
+    connectionController.denyapprovalconnection = function (req, res, next) {
+        connectionServiceObject.denyapprovalconnection(
+            req,
+            connectionModel,
+            profile,
+            Sequelize,
+            res);
     };
     connectionController.changeapproval = function (req, res, next) {
         connectionServiceObject.changeapproval(

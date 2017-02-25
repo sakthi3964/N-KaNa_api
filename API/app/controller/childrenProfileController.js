@@ -32,7 +32,18 @@ module.exports = function (databaseBS, Sequelize) {
         childrenProfileServiceObject.viewchildrendata(req, childrenProfileModel, Sequelize, res);
     };
 
-
+childrenProfileController.approve_preassess = function (req, res, next) {
+        console.log("hi approve_preassess ");
+        childrenProfileServiceObject.approve_preassess(req, childrenProfileModel, Sequelize, res);
+    };
+    childrenProfileController.accept_preassess = function (req, res, next) {
+        console.log("hi accept_preassess ");
+        childrenProfileServiceObject.accept_preassess(req, childrenProfileModel, Sequelize, res);
+    }
+    childrenProfileController.deny_preassess = function (req, res, next) {
+        console.log("hi deny_preassess ");
+        childrenProfileServiceObject.deny_preassess(req, childrenProfileModel, Sequelize, res);
+    }
     childrenProfileController.SelectChild = function (req, res, next) {
         console.log("hi ChildrenProfileDetial ");
         childrenProfileServiceObject.viewSelectChild(req, childrenProfileModel, Sequelize, res);

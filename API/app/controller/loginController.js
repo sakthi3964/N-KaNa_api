@@ -14,11 +14,14 @@ module.exports = function (databaseBS, Sequelize) {
             childrenProfileModel,
             Sequelize,
             res);
-    };
+    }; 
     loginController.activechange = function (req, res, next) {
         console.log("hi preassess user");
         loginactivechangeServiceObject.activechange(req, login, Sequelize, res);
     };
-
+    loginController.viewlogindetails = function (req, res, next) {
+        console.log("hi preassess user");
+        loginactivechangeServiceObject.viewlogindetails(req, login, Sequelize, res);
+    };
     return loginController;
 }

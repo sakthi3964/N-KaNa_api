@@ -19,6 +19,7 @@
     "url": "https://github.com//nkana/issues"
   },
   "dependencies": {
+    "@nodemailer/pro": "^1.0.0",
     "body-parser": "^1.15.2",
     "caminte": "^0.2.6",
     "cookie-parser": "*",

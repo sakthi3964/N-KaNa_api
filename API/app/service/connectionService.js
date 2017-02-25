@@ -1,5 +1,35 @@
 module.exports = function (testmodel) {
     var connectionService = {};
+    connectionService.deniedvolunteernextchild = function (req, testmodel, childrenProfileModel, Sequelize, callBack) {
+        var children_id = req.body.children_id;
+        var role = req.body.role;
+        var profile_id = req.body.volunteer_id;
+        var approve_status = req.body.approve_status;
+        testmodel.create({
+            children_id: children_id,
+            role: role,
+            profile_id: profile_id,
+            flag: 0,
+            approve_status: 0
+        }).then(function (results) {
+            childrenProfileModel.update({
+                connection_status: 1
+            }, {
+                    where: {
+                        id: results.children_id
+                    }
+                }).then(function (result) {
+                    var res = {};
+                    res.testmodel = results;
+                    res.childrenProfileModel = result;
+                    callBack(res);
+                })
+
+        }).catch(function (error) {
+            callBack(error);
+        });
+
+    };
     connectionService.insertConneection = function (req, testmodel, childrenProfileModel, Sequelize, callBack) {
         var children_id = req.body.children_id;
         var role = req.body.role;
@@ -91,6 +121,23 @@ module.exports = function (testmodel) {
             }
         })
     }
+
+    connectionService.denydetails = function (req, connectionModel, Sequelize, res) {
+        var id = req.body.id;
+        console.log("sfdkjldsjf;lkdsjkl;f");
+        connectionModel.findOne({
+            order: [
+                ['id', 'DESC']
+            ],
+               where: {
+                profile_id: id
+            }
+            
+            
+        }).then(function (result) {
+            res.send(result);
+        });
+    };
     connectionService.viewchild = function (req, connectionModel, childrenProfileModel, Sequelize, res) {
         var id = req.body.id;
         connectionModel.belongsTo(childrenProfileModel, { foreignKey: 'children_id' });
@@ -118,7 +165,7 @@ module.exports = function (testmodel) {
             }
         }).then(function (result) {
             // console.log("sdffffffffffffffffffffffffffffffffffffffffffffffffffff"+result[0].children_id);
-            if ((result[0] != null) || (result== null)) {
+            if ((result[0] != null) || (result == null)) {
                 var role1 = result[0].role;
                 if (role1 == "volunteer") {
                     var role = "mentor";
@@ -156,7 +203,7 @@ module.exports = function (testmodel) {
 
     connectionService.viewchildvolunteer = function (req, connectionModel, profile, profileinfo, Sequelize, res) {
         var id = req.body.id;
-        console.log("sdfl;sl;dfjkl;sdfkj"+id);
+        console.log("sdfl;sl;dfjkl;sdfkj" + id);
         connectionModel.belongsTo(profile, { foreignKey: 'profile_id' });
         profile.belongsTo(profileinfo, { foreignKey: 'id' });
         connectionModel.findAll({
@@ -220,10 +267,33 @@ module.exports = function (testmodel) {
         })
     }
 
+    connectionService.denyapprovalconnection = function (req, connectionModel, profile, Sequelize, res) {
+        var id = req.body.id;
+        var profile_id = req.body.profile_id;
+        var role = req.body.role;
+        console.log("hjjjjjjjjjjjjjjjjjjj" + profile_id);
+        var status = req.body.status;
+        var time = req.body.time;
+             connectionModel.update({
+            approve_status: 2,
+            updated_at: time
+        },
+            {
+                where: {
+                    id: id
+                }
+
+            }).then(function (result) {
+                res.send(results);
+                    
+            });
+    }
+
+
     connectionService.changeapproval = function (req, connectionModel, profile, Sequelize, res) {
         var id = req.body.id;
         var profile_id = req.body.profile_id;
-        console.log("fdssjl;akkkkkkkkkfjlkdfdslkjsdf;lfkjdfdkj"+req.body.status);
+        console.log("fdssjl;akkkkkkkkkfjlkdfdslkjsdf;lfkjdfdkj" + req.body.status);
         console.log("hjjjjjjjjjjjjjjjjjjj" + profile_id);
         var status = req.body.status;
         if (status == true) {
@@ -299,7 +369,8 @@ module.exports = function (testmodel) {
         var id = req.body.id;
         testmodel.findAll({
             where: {
-                profile_id: id
+                profile_id: id,
+                approve_status: 1
             }
         }).then(function (result) {
 

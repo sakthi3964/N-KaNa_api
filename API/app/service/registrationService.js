@@ -1,9 +1,19 @@
 var multer = require("multer");
 var md5 = require('md5');
+// const nodemailer = require("@nodemailer/pro");
+
 module.exports = function (testmodel) {
     var registrationService = {};
     //valiation of the login page using users table
+    // let transporter = nodemailer.createTransport({
+    //     service: 'gmail',
+    //     auth: {
+    //         user: 'sm120538@gmail.com',
+    //         pass: 'class.forname();'
+    //     }
+    // });
     registrationService.validateUserCredential = function (req, testmodel, Sequelize, res) {
+
         console.log("welcome to Loginpage validation");
         var email_id = req.body.email_id;
         var password = req.body.password;
@@ -72,7 +82,38 @@ module.exports = function (testmodel) {
             res.send(result);
         });
     };
+    registrationService.denyloginstatus = function (req, profile, testmodel, Sequelize, res) {
+        console.log("welcome change status api service ");
 
+        var id = req.body.id;
+        var profileId = req.body.profileId;
+        console.log(profileId);
+        testmodel.update({
+            status: 2
+
+        }, {
+                where: {
+                    id: id
+                }
+            }).then(function (result) {
+                console.log("sivasankari" + id);
+                profile.update({
+
+                    approvedstatus: 2
+                },
+                    {
+                        where: {
+                            id: profileId
+                        }
+                    })
+
+
+            }).then(function (results) {
+
+                res.send("1");
+            });
+
+    };
     registrationService.changeStatusService = function (req, profile, testmodel, Sequelize, res) {
         console.log("welcome change status api service ");
 
@@ -87,17 +128,17 @@ module.exports = function (testmodel) {
                     id: id
                 }
             }).then(function (result) {
-                console.log("sivasankari"+id);
-                    profile.update({
+                console.log("sivasankari" + id);
+                profile.update({
 
-                        approvedstatus: 1
-                    },
+                    approvedstatus: 1
+                },
                     {
-                        where:{
-                            id:profileId
+                        where: {
+                            id: profileId
                         }
                     })
-                
+
 
             }).then(function (results) {
 
@@ -107,6 +148,13 @@ module.exports = function (testmodel) {
     };
     //insert data from volunteer registration page to profile and profile info model
     registrationService.InsertProfile = function (req, profilemodel, profileinfomodel, login, Sequelize, callBack) {
+        // let mailOptions = {
+        //     from: '"sakthi 👻" <sm120538@gmail.com>', // sender address
+        //     to: 'sakthi3964@gmail.com', // list of receivers
+        //     subject: 'Hello ✔', // Subject line
+        //     text: 'Hello world ?', // plain text body
+        //     html: '<b>Hello world ?</b>' // html body
+        // };
         var role = req.body.role;
         var name = req.body.name;
         var dob = req.body.dob;
@@ -187,37 +235,12 @@ module.exports = function (testmodel) {
                     res.profile = results;
                     res.profileinfo = result;
                     res.login = ress;
-                    var nodemailer = require('nodemailer');
-                    var smtpTransport = require('nodemailer-smtp-transport');
-
-                    var transporter = nodemailer.createTransport('smtps://sakthisakthimurugan29%40gmail.com:tyclmughilsummercamp@smtp.gmail.com');
-
-                    // var transporter = nodemailer.createTransport(smtpTransport({
-                    //     host: 'localhost',
-                    //     port: 3406,
-                    //     auth: {
-                    //         user: 'sahsakthi@yahoo.com',
-                    //         pass: 'tyclmughil2016'
+                    // transporter.sendMail(mailOptions, function (error, info) {
+                    //     if (error) {
+                    //         return console.log(error);
                     //     }
-                    // }));
-
-
-                    // setup e-mail data with unicode symbols 
-                    var mailOptions = {
-                        from: '"Sakthi" <sakthisakthimurugan29@gmail.com>', // sender address 
-                        to: 'sakthi3964@gmail.com', // list of receivers 
-                        subject: 'Successful Registration ✔', // Subject line 
-                        text: 'Hello world 🐴', // plaintext body 
-                        html: '<b>hai🐴</b>' // html body 
-                    };
-
-                    // send mail with defined transport object 
-                    transporter.sendMail(mailOptions, function (error, info) {
-                        if (error) {
-                            return console.log(error);
-                        }
-                        console.log('Message sent: ' + info.response);
-                    })
+                    //     console.log('Message %s sent: %s', info.messageId, info.response);
+                    // });
                     callBack(res);
                 })
             })
@@ -233,7 +256,7 @@ module.exports = function (testmodel) {
                 var fileformat = file.originalname.split('.')[file.originalname.split('.').length - 1]
                 console.log(fileformat);
                 if (req.body.role == "mentor") {
-                    if ((fileformat == "jpg") || (fileformat == "jpeg") || (fileformat == "JPG") || (fileformat == "JPEG")) {
+                    if ((fileformat == "jpg") || (fileformat == "jpeg") || (fileformat == "JPG") || (fileformat == "JPEG") || (fileformat == "png") || (fileformat == "Png") || (fileformat == "PNG")) {
                         cb(null, './uploads/mentor/photo')
                     }
                     else if ((fileformat == "pdf") || (fileformat == "PDF")) {
@@ -242,7 +265,7 @@ module.exports = function (testmodel) {
 
                 }
                 else if (req.body.role == "volunteer") {
-                    if ((fileformat == "jpg") || (fileformat == "jpeg") || (fileformat == "JPG") || (fileformat == "JPEG")) {
+                    if ((fileformat == "jpg") || (fileformat == "jpeg") || (fileformat == "JPG") || (fileformat == "JPEG") || (fileformat == "png") || (fileformat == "Png") || (fileformat == "PNG")) {
                         cb(null, './uploads/volunteer/photo')
                     }
                     else if ((fileformat == "pdf") || (fileformat == "PDF")) {
@@ -250,7 +273,7 @@ module.exports = function (testmodel) {
                     }
                 }
                 else if (req.body.role == "children") {
-                    if ((fileformat == "jpg") || (fileformat == "jpeg") || (fileformat == "JPG") || (fileformat == "JPEG")) {
+                    if ((fileformat == "jpg") || (fileformat == "jpeg") || (fileformat == "JPG") || (fileformat == "JPEG") || (fileformat == "png") || (fileformat == "Png") || (fileformat == "PNG")) {
                         cb(null, './uploads/children/photo')
                     }
                 }

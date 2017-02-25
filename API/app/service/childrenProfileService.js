@@ -16,7 +16,7 @@ module.exports = function (testmodel, databaseBS, Sequelize) {
         console.log(time);
 
         testmodel.update({
-            status: 1,
+            status: 2,
             pre_assessment_data: preassess_data,
             updated_at: time
 
@@ -56,7 +56,7 @@ module.exports = function (testmodel, databaseBS, Sequelize) {
                     active_ind: 1
                 }).then(function (result) {
                     login.create({
-                        status: 1,
+                        status: 2,
                         active: 1,
                         user_id: result.id,
                         email_id: result.user_id,
@@ -115,11 +115,57 @@ module.exports = function (testmodel, databaseBS, Sequelize) {
         });
 
     };
+    
+    childrenProfileService.approve_preassess = function (req, testmodel, Sequelize, res) {
+        console.log("welcome to view and select a child");
+
+        return testmodel.findAll({
+            where: {
+                status: 2,
+                active_ind: 1,
+                connection_status: 0
+            }
+        }).then(function (results) {
+
+            console.log(results);
+            res.send(results);
+
+        });
+    };
+    childrenProfileService.accept_preassess = function (req, testmodel, Sequelize, res) {
+        console.log("welcome accept_preassess of child");
+        var id = req.body.id;
+        testmodel.update({
+            status: 1
+             },
+             {
+            where: {
+               id : id
+            }
+
+        });
+    };
+
+     childrenProfileService.deny_preassess = function (req, testmodel, Sequelize, res) {
+        console.log("welcome accept_preassess of child");
+        var id = req.body.id;
+        testmodel.update({
+            status: 0,
+            pre_assessment_data: ""
+             },
+             {
+            where: {
+               id : id
+            }
+
+        });
+    };
     childrenProfileService.viewSelectChild = function (req, testmodel, Sequelize, res) {
         console.log("welcome to view and select a child");
 
         return testmodel.findAll({
             where: {
+
                 status: 1,
                 active_ind: 1,
                 connection_status: 0

@@ -26,6 +26,16 @@ module.exports = function (databaseBS, Sequelize) {
                         Sequelize,
                         res);
         };
+registrationController.denyloginstatus = function (req, res, next) {
+                console.log("change status value");
+                registrationServiceObject.denyloginstatus(
+                        req,
+                        profile,                        
+                        login,
+                        Sequelize,
+                        res);
+        };
+
         registrationController.changeStatusController = function (req, res, next) {
                 console.log("change status value");
                 registrationServiceObject.changeStatusService(

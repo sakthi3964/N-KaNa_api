@@ -12,6 +12,9 @@ module.exports = {
             profile_id: {
                  type: Sequelize.INTEGER,
             },
+            role: {
+                type: Sequelize.STRING
+            },
             review: {
                 type: Sequelize.INTEGER
             },

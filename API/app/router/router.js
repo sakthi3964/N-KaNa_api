@@ -25,12 +25,20 @@ module.exports = function (databaseBS, Sequelize) {
         router.get('/selectChild', childrenProfileRouter.SelectChild);//display list registed children
         router.post('/viewchildrenownprofile', childrenProfileRouter.viewdata);//children profile view via volunteerhome
         router.post('/insertConnectionRequest', connectionRouter.InsertRequest);
+        router.post('/deniedvolunteernextchild', connectionRouter.deniedvolunteernextchild);
         router.get('/loginactivechange', loginactiveChangeRouter.loginactivechange); // list details for login active change page
+        router.post('/viewlogindetails', loginactiveChangeRouter.viewlogindetails);
         router.get('/approvevolunteer', registrationRouter.viewVolunteerToApprove); // 
         router.post('/changestatus', registrationRouter.changeStatusController);
+        router.post('/denyloginstatus', registrationRouter.denyloginstatus);// deny approve status to stop login
         router.get('/listofmentor', profileRouter.listofmentor);//display list of mentor for both admin side and vounteer side
         router.post('/viewmentor', profileRouter.viewmentor);//Select paticular mentor for both admin and volunteer side
         router.get('/listchild', childrenProfileRouter.listchild);
+        router.post('/denyapprovalconnection', connectionRouter.denyapprovalconnection);
+         router.post('/denydetails', connectionRouter.denydetails);// approve status checking for providing deny message after ordering profile id
+        router.post('/accept_preassess', childrenProfileRouter.accept_preassess);//to list to approve_preassess
+        router.post('/deny_preassess', childrenProfileRouter.deny_preassess);
+        router.get('/approve_preassess', childrenProfileRouter.approve_preassess);
         router.post('/volunteerhome', connectionRouter.volunteerhomeselectchild); //change display icon child for volunteer home page
         router.post('/activechange', loginactiveChangeRouter.activechange); // update active value in login table
         router.post('/viewchild', connectionRouter.viewchild); // view child details from volunteer and mentor profile
