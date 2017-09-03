@@ -3,6 +3,7 @@ module.exports = function (databaseBS, Sequelize) {
     var profile = require('../module/profile').UserDetial(databaseBS, Sequelize, "profiles");
     var profileServiceObject = require('../service/profileService')(profileinfo);
     var login = require('../module/login').UserDetial(databaseBS, Sequelize, "logins");
+
     var profileController = {};
 
     profileController.viewVolunteer = function (req, res, next) {
@@ -23,7 +24,7 @@ module.exports = function (databaseBS, Sequelize) {
             Sequelize,
             res);
     }
-      profileController.listofmentor = function (req, res, next) {
+    profileController.listofmentor = function (req, res, next) {
         console.log("hi listof mentor");
         profileServiceObject.listofmentor(
             req,
@@ -42,8 +43,8 @@ module.exports = function (databaseBS, Sequelize) {
             Sequelize,
             res);
     };
-
-     profileController.editreturn = function (req, res, next) {
+    //fetch data from database to display in registration page for edit profile
+    profileController.editreturn = function (req, res, next) {
         // console.log("hi listofvolunteer");
         profileServiceObject.editreturn(
             req,
@@ -52,7 +53,7 @@ module.exports = function (databaseBS, Sequelize) {
             Sequelize,
             res);
     };
-
+// after editing to update the database
     profileController.editupdate = function (req, res, next) {
         // console.log("hi listofvolunteer");
         profileServiceObject.editupdate(

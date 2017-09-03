@@ -130,6 +130,15 @@ module.exports = {
                 // validate: {
                 //     //notEmpty: true
                 // }
+            },
+            updated_at: {
+                type: Sequelize.STRING
+            },
+            verification_status: {
+                type: Sequelize.INTEGER,
+            },
+            encrypted_email: {
+                type: Sequelize.STRING,
             }
         });
         return User;

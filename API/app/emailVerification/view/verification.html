@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Verification Page</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+        var url = window.location.href;
+        var id = url.substring(url.lastIndexOf('=') + 1);
+        var data = {};
+        data.id = id;
+        var settings = {
+            "crossDomain": true,
+            "url": "http://nkanaapi-sakthi3964.rhcloud.com/userVerification",
+            "method": "POST",
+            "headers": {
+                "content-type": "application/json",
+            },
+            "processData": false,
+            "data": JSON.stringify(data),
+        }
+        $.ajax(settings).done(function (response) {
+            return false;
+        });
+    </script>
+</head>
+
+<body>
+    <center>
+        <p>Your Email Has been verified Successfully</p>
+    </center>
+</body>
+
+</html>

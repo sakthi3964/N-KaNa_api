@@ -52,7 +52,7 @@ module.exports = function (testmodel) {
 
     };
 
-  trackerService.ListTrackerDates = function (req, testmodel, Sequelize, res) {
+    trackerService.ListTrackerDates = function (req, testmodel, Sequelize, res) {
         console.log("welcome to listing of tracker users");
 
         var id = req.body.id;
@@ -93,15 +93,15 @@ module.exports = function (testmodel) {
         var mentee_id = req.body.id;
         console.log(mentee_id)
         testmodel.findAll({
-            where:{
-                mentee_id:mentee_id,
+            where: {
+                mentee_id: mentee_id,
                 role: "mentor"
             }
-        }).then(function (results){
+        }).then(function (results) {
             res.send(results);
         })
-        
-      }
+
+    }
     trackerService.ListTrackerDatesmentorid = function (req, testmodel, connectionControllerModel, Sequelize, res) {
         var profile_id = req.body.id;
         console.log(profile_id);
@@ -111,7 +111,6 @@ module.exports = function (testmodel) {
                 profile_id: profile_id
             }
         }).then(function (results) {
-            console.log(results);
             var mentee_id = results.children_id;
             var role = results.role;
             testmodel.findAll({
@@ -128,18 +127,92 @@ module.exports = function (testmodel) {
             });
         })
     };
-    trackerService.reviewGraph = function (req, trackerModel, Sequelize, res) {
+    trackerService.reviewGraph = function (req, trackerModel,connectionModel, Sequelize, res) {
 
         console.log("welcome to listing of review details of tracker  of users");
+        var childId = req.body.childId;
+        var role = req.body.role;
+        if( role == 'volunteer')
+        {
+              trackerModel.findOne({ where: { created_at: req.body.date, profile_id: req.body.profileId } })
+                .then(function (results) {
+                    console.log(results);
+                    res.send(results);
 
-        trackerModel.findOne({ where: { date: req.body.date } })
-            .then(function (results) {
-                console.log(results);
-                res.send(results);
+                });
+        }
+        if ( role == 'admin'|| role == 'children') {
 
-            });
+             trackerModel.findOne({ where: { created_at: req.body.date, mentee_id: req.body.childId } })
+                .then(function (results) {
+                    console.log(results);
+                    res.send(results);
+
+                });
+        }
+        else {
+           connectionModel.findOne({ where: {profile_id: req.body.profileId } })
+                .then(function (results) {
+
+                    console.log(results);
+              //     childId=results.children_id;
+                    console.log("child id : ",results.children_id);
+                   // res.send(results);
+                    trackerModel.findOne({ where: { created_at: req.body.date, mentee_id: results.children_id } })
+                .then(function (result) {
+                    console.log(result);
+                    res.send(result);
+
+                });
+
+                });
+         
+
+        }
+
 
     }
+    // cumulativegraph start
+    trackerService.cumulativegraph = function (req, trackerModel, Sequelize, res) {
+        var profileId = req.body.profileId;
+        trackerModel.findAll({
+            where:
+            {
+                profile_id: profileId
 
+            }
+        }).then(function (results) {
+
+            res.send(results);
+        });
+    }
+    trackerService.cumulativegraphwithdate = function (req, trackerModel, Sequelize, res) {
+        console.log("welcome to listing of review details of tracker  of users");
+        var common = req.body.common;
+        console.log("common" + common);
+        console.log("fromdadte" + req.body.fromdate);
+        console.log("graph with date rfdkjhgjdhbg");
+        var date1 = req.body.fromdate;
+        console.log("date1" + date1);
+        var date2 = req.body.todate;
+        var profileId = req.body.profileId;
+        console.log("date2" + date2);
+        trackerModel.findAll({
+            where:
+            {
+                profile_id: profileId,
+                date: {
+                    $between: [date1, date2]
+                }
+            }
+        }).then(function (results) {
+
+            res.send(results);
+
+        });
+
+
+    }
+    // cumulativegraph ends
     return trackerService;
 }

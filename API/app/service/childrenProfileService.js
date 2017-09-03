@@ -1,4 +1,5 @@
 var multer = require("multer");
+var md5 = require('md5');
 module.exports = function (testmodel, databaseBS, Sequelize) {
     var childrenProfileModel = require('../module/childrenprofile').ChildrenProfileDetial(databaseBS, Sequelize, "childrenprofiles");
     var helperObject = require('../helper/custom')(databaseBS, Sequelize);
@@ -24,20 +25,22 @@ module.exports = function (testmodel, databaseBS, Sequelize) {
                 where: {
                     id: id
                 }
-            });
+            }).then(function(result){
+                res.send("1");
+            })
 
     };
-    childrenProfileService.childreg = function (req, testmodel, login, Sequelize, res) {
+   childrenProfileService.childreg = function (req, testmodel,profile, login, Sequelize, res) {
         console.log("welcome children registration");
-
         console.log(req.body);
-        helperObject.validation(req, testmodel, Sequelize, function (result) {
+        helperObject.validation(req, testmodel,profile, Sequelize, function (result) {
             console.log(result);
             if (result.msg == '0') {
                 var name = result.req.name;
                 var age = result.req.age;
                 var gender = result.req.gender;
                 var password = result.req.password;
+                var hashed = md5(password);
                 var dob = result.req.dob;
                 var center = result.req.center;
                 var user_id = result.req.user_id;
@@ -47,21 +50,22 @@ module.exports = function (testmodel, databaseBS, Sequelize) {
                     full_name: name,
                     age: age,
                     gender: gender,
-                    password: password,
+                    password: hashed,
                     dob: dob,
                     user_id: user_id,
                     role: role,
                     center: center,
-                    photos: photos,
+                    photos:photos,
                     active_ind: 1
                 }).then(function (result) {
                     login.create({
-                        status: 2,
+                        status: 1,
                         active: 1,
                         user_id: result.id,
                         email_id: result.user_id,
                         role: role,
-                        password: password
+                        verification_status: 1,
+                        password: hashed
                     }).then(function (results) {
                         var res1 = {};
                         res1.childrenProfileModel = result;
@@ -106,17 +110,8 @@ module.exports = function (testmodel, databaseBS, Sequelize) {
             res.send(imgfilename);
         })
     }
-    childrenProfileService.listchild = function (req, testmodel, Sequelize, res) {
-        console.log("welcome to view Children");
-        testmodel.findAll({
 
-        }).then(function (results) {
-            res.send(results);
-        });
-
-    };
-    
-    childrenProfileService.approve_preassess = function (req, testmodel, Sequelize, res) {
+     childrenProfileService.approve_preassess = function (req, testmodel, Sequelize, res) {
         console.log("welcome to view and select a child");
 
         return testmodel.findAll({
@@ -143,6 +138,11 @@ module.exports = function (testmodel, databaseBS, Sequelize) {
                id : id
             }
 
+        }).then(function (results) {
+
+            console.log(results);
+            res.send(results);
+
         });
     };
 
@@ -158,14 +158,24 @@ module.exports = function (testmodel, databaseBS, Sequelize) {
                id : id
             }
 
+        }).then(function (results) {
+            res.send(results);
         });
+    };
+    childrenProfileService.listchild = function (req, testmodel, Sequelize, res) {
+        console.log("welcome to view Children");
+        testmodel.findAll({
+
+        }).then(function (results) {
+            res.send(results);
+        });
+
     };
     childrenProfileService.viewSelectChild = function (req, testmodel, Sequelize, res) {
         console.log("welcome to view and select a child");
 
         return testmodel.findAll({
             where: {
-
                 status: 1,
                 active_ind: 1,
                 connection_status: 0

@@ -29,7 +29,9 @@ module.exports = function (testmodel) {
         testmodel.belongsTo(profileinfo, { foreignKey: 'id' });
         testmodel.findAll({
             where: {
-                role: role
+                role: role,
+                approvedstatus:1,
+                verification_status:1  // added for displaying volunteer profile after email verification
             },
             include: [
                 {
@@ -71,7 +73,8 @@ module.exports = function (testmodel) {
             where: {
                 role: role,
                 connection_status: 0,
-                approvedstatus: 1
+                approvedstatus:1,
+                verification_status: 1 // verification statuss 
 
             },
             include: [
@@ -84,6 +87,8 @@ module.exports = function (testmodel) {
         });
 
     };
+
+    //service to fetch data from database and to display in registration page
     profileService.editreturn = function (req, testmodel, profileinfo, Sequelize, res) {
         // console.log("hi");
         testmodel.belongsTo(profileinfo, { foreignKey: 'id' });
@@ -102,10 +107,10 @@ module.exports = function (testmodel) {
             res.send(results);
         });
     };
-
+    // service to update the changed value in the database
     profileService.editupdate = function (req, testmodel, profileinfo, login, Sequelize, callBack) {
         var role = req.body.role;
-        var id= req.body.id;
+        var id = req.body.id;
         var name = req.body.name;
         var dob = req.body.dob;
         var age = req.body.age;
@@ -136,6 +141,7 @@ module.exports = function (testmodel) {
         var cv = req.body.cv;
         var photo = req.body.photo;
         var center = req.body.center;
+        var time = req.body.time;
 
         testmodel.update({
             role: role,
@@ -153,7 +159,8 @@ module.exports = function (testmodel) {
             mobile_no: mobile_no,
             email_id: email_id,
             password: password,
-            phone: phone
+            phone: phone,
+            updated_at: time
         }, {
                 where: {
                     id: id
@@ -175,7 +182,8 @@ module.exports = function (testmodel) {
                     experience: experience,
                     connection_status: 0,
                     cv: cv,
-                    photo: photo
+                    photo: photo,
+                    updated_at: time
                 },
                     {
                         where: {
@@ -187,7 +195,8 @@ module.exports = function (testmodel) {
                             user_id: results.profile_id,
                             email_id: email_id,
                             role: role,
-                            password: password
+                            password: password,
+                            updated_at: time
                         },
                             {
                                 where: {

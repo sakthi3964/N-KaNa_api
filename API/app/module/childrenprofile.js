@@ -42,7 +42,11 @@ module.exports = {
             },
             photos: {
                 type: Sequelize.STRING
+            },
+             mentor_approval: {
+                type: Sequelize.INTEGER
             }
+
             // id:{
             //     type:Sequelize.INTEGER,
             //     primaryKey:true

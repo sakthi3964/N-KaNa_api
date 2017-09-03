@@ -34,8 +34,13 @@ module.exports = {
             },
             updated_at:{
                 type:Sequelize.STRING
+            },
+            verification_status: {
+                type: Sequelize.INTEGER,
+            },
+            encrypted_email: {
+                type: Sequelize.STRING,
             }
-
 
         });
         return User;

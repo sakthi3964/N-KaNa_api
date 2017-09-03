@@ -34,9 +34,19 @@ module.exports = function (databaseBS, Sequelize) {
 
     trackerController.ReviewGraph = function (req, res, next) {
         console.log("hi review of tracker user");
-        trackerServiceObject.reviewGraph(req, trackerModel, Sequelize, res);
+        trackerServiceObject.reviewGraph(req, trackerModel,connectionControllerModel, Sequelize, res);
     };
 
+    // cumulativegraph starts
+    trackerController.cumulativegraph = function (req, res, next) {
+        console.log("hi review of tracker user");
+        trackerServiceObject.cumulativegraph(req, trackerModel, Sequelize, res);
+    };
 
+    trackerController.cumulativegraphwithdate = function (req, res, next) {
+        console.log("hi review of tracker user");
+        trackerServiceObject.cumulativegraphwithdate(req, trackerModel, Sequelize, res);
+    };
+    // cumulativegraph ends
     return trackerController;
 }

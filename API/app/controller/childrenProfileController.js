@@ -3,7 +3,7 @@ module.exports = function (databaseBS, Sequelize) {
     var childrenProfileServiceObject = require('../service/childrenProfileService')(childrenProfileModel, databaseBS, Sequelize);
     var login = require('../module/login').UserDetial(databaseBS, Sequelize, "logins");
     // var test = require('../service/childrenProfileService')(login);
-
+    var profile = require('../module/profile').UserDetial(databaseBS, Sequelize, "profiles");
     var childrenProfileController = {};
 
     childrenProfileController.Preassess = function (req, res, next) {
@@ -15,6 +15,7 @@ module.exports = function (databaseBS, Sequelize) {
         childrenProfileServiceObject.childreg(
             req,
             childrenProfileModel,
+            profile,
             login,
             Sequelize,
             res);
@@ -31,8 +32,7 @@ module.exports = function (databaseBS, Sequelize) {
         console.log("hi view children data");
         childrenProfileServiceObject.viewchildrendata(req, childrenProfileModel, Sequelize, res);
     };
-
-childrenProfileController.approve_preassess = function (req, res, next) {
+    childrenProfileController.approve_preassess = function (req, res, next) {
         console.log("hi approve_preassess ");
         childrenProfileServiceObject.approve_preassess(req, childrenProfileModel, Sequelize, res);
     };
@@ -44,6 +44,7 @@ childrenProfileController.approve_preassess = function (req, res, next) {
         console.log("hi deny_preassess ");
         childrenProfileServiceObject.deny_preassess(req, childrenProfileModel, Sequelize, res);
     }
+
     childrenProfileController.SelectChild = function (req, res, next) {
         console.log("hi ChildrenProfileDetial ");
         childrenProfileServiceObject.viewSelectChild(req, childrenProfileModel, Sequelize, res);

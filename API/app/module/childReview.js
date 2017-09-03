@@ -13,7 +13,7 @@ module.exports = {
                  type: Sequelize.INTEGER,
             },
             role: {
-                type: Sequelize.STRING
+                type: Sequelize.STRING,
             },
             review: {
                 type: Sequelize.INTEGER

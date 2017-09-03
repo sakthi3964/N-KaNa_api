@@ -71,6 +71,9 @@ module.exports = {
                 //     //notEmpty: true
                 // }
             },
+            off_address: {
+                type: Sequelize.STRING
+            },
             cv: {
                 type: Sequelize.STRING,
                 // validate: {
@@ -83,8 +86,11 @@ module.exports = {
                 // validate: {
                 //     //notEmpty: true
                 // }
-            }
+            },
 
+            updated_at:{
+                type:Sequelize.STRING
+            }
         });
         return User;
     }

@@ -22,6 +22,9 @@ module.exports = {
             },
             approve_status: {
                 type: Sequelize.INTEGER
+            },
+            updated_at:{
+                type:Sequelize.STRING
             }
 
         });

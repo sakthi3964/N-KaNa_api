@@ -6,7 +6,6 @@ module.exports = function (testmodel) {
         console.log("welcome insert review");
         var children_id = req.body.id;
         var profile_id = req.body.profile_id;
-        console.log(profile_id);
         var time = req.body.time;
         var review = req.body.reviews;
         profile.findAll({
@@ -14,8 +13,7 @@ module.exports = function (testmodel) {
                 id: profile_id
             }
         }).then(function (results) {
-            console.log("helloslfjl;sdjlf" + results[0].role);
-            var role = results[0].role;
+             var role =results[0].role;
             childrenReviewModel.create({
                 children_id: children_id,
                 profile_id: profile_id,
@@ -38,7 +36,18 @@ module.exports = function (testmodel) {
             });
         });
     }
-    ChildrenReviewService.viewChildrenReview = function (req, childrenReviewModel, Sequelize, res) {
+    // var care = req.body.care;
+    // var behaviour = req.body.behaviour;
+    // var confidentiality = req.body.confidentiality;
+    // var mentorship = req.body.mentorship;
+    // var environment = req.body.environment;
+    // var feelings = req.body.feelings;
+    // var willingness = req.body.willingness;
+    // var learning = req.body.learning;
+    // var feedback = req.body.feedback;
+    // var comment = req.body.comment;
+    
+ChildrenReviewService.viewChildrenReview = function (req, childrenReviewModel, Sequelize, res) {
         console.log(req.body.date);
         testmodel.findOne({ where: { created_at: req.body.date } })
             .then(function (results) {
@@ -49,13 +58,11 @@ module.exports = function (testmodel) {
     }
     // ChildrenReviewService.viewChildrenReview = function (req, testmodel, Sequelize, res) {
     //     var children_id = req.body.id;
-    //     console.log("sdj;kldsfa" + children_id);
     //     testmodel.findOne({
     //         order: [
     //             ['updated_at', 'DESC']
     //         ],
     //         where: {
-
     //             children_id: children_id,
     //         }
     //     }).then(function (results) {
@@ -69,6 +76,7 @@ module.exports = function (testmodel) {
 
     //     })
     // }
+
     ChildrenReviewService.childReviewDates = function (req, testmodel, Sequelize, res) {
         var children_id = req.body.id;
         console.log(children_id);
@@ -101,13 +109,12 @@ module.exports = function (testmodel) {
         console.log(children_id);
         testmodel.findAll({
             order: [
-                ['created_at', 'DESC']
+                ['updated_at', 'DESC']
             ],
             where: {
                 children_id: children_id
             }
         }).then(function (results) {
-            console.log("fellowfeloowlfellowflelow"+results[0].created_at);
             var created_at = results[0].created_at;
             var dateObj = new Date(created_at);
             var cur = new Date();

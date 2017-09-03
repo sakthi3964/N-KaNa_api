@@ -1,3 +1,4 @@
+var verification = require('../emailVerification/mailverification');
 module.exports = function (testmodel) {
     var connectionService = {};
     connectionService.deniedvolunteernextchild = function (req, testmodel, childrenProfileModel, Sequelize, callBack) {
@@ -30,10 +31,12 @@ module.exports = function (testmodel) {
         });
 
     };
+
     connectionService.insertConneection = function (req, testmodel, childrenProfileModel, Sequelize, callBack) {
         var children_id = req.body.children_id;
         var role = req.body.role;
         var profile_id = req.body.volunteer_id;
+        var time = req.body.time;
         testmodel.count({
             where: {
                 profile_id: profile_id,
@@ -51,7 +54,8 @@ module.exports = function (testmodel) {
                     flag: 0
                 }).then(function (results) {
                     childrenProfileModel.update({
-                        connection_status: 1
+                        connection_status: 1,
+                        updated_at: time
                     }, {
                             where: {
                                 id: results.children_id
@@ -71,9 +75,64 @@ module.exports = function (testmodel) {
         });
 
     };
+    connectionService.mentorApproval = function (req, connectionModel, childrenProfileModel, profile, Sequelize, callBack) {
+        var profileId = req.body.profileId;
+        var operation = req.body.operation;
+        var allDetails = {};
+        if (operation == "details") {
+            connectionModel.findOne({
+                where: {
+                    profile_id: profileId,
+                    approve_status: 0
+                }
+            }).then(function (result) {
+                console.log("cccc", result.children_id);
+                allDetails.childrenId = result.children_id;
+                connectionModel.findOne({
+                    where: {
+                        children_id: result.children_id,
+                        role: "volunteer"
+                    }
+                }).then(function (results) {
+
+                    allDetails.volunteerId = results.profile_id;
+                    childrenProfileModel.findOne({
+                        where: {
+                            id: allDetails.childrenId,
+                            mentor_approval: 0,
+
+                        }
+                    }).then(function (resultss) {
+                        allDetails.childrenResult = resultss;
+                        callBack(allDetails);
+                    })
+
+                })
+            })
+
+        }
+        if (operation == "accept") {
+            connectionModel.findOne({
+                where: {
+                    profile_id: profileId
+
+                }
+            }).then(function (result) {
+                childrenProfileModel.update({
+                    mentor_approval: 1
+                }, {
+                        where: {
+                            id: result.children_id
+                        }
+                    })
+            })
+        }
+
+    }
     connectionService.insertMentorConnection = function (req, connectionModel, Sequelize, callBack) {
         var volunteer_id = req.body.volunteerid;
         var profile_id = req.body.profile_id;
+        var time = req.body.time;
         connectionModel.count({
             where: {
                 profile_id: profile_id,
@@ -129,11 +188,11 @@ module.exports = function (testmodel) {
             order: [
                 ['id', 'DESC']
             ],
-               where: {
+            where: {
                 profile_id: id
             }
-            
-            
+
+
         }).then(function (result) {
             res.send(result);
         });
@@ -143,7 +202,9 @@ module.exports = function (testmodel) {
         connectionModel.belongsTo(childrenProfileModel, { foreignKey: 'children_id' });
         connectionModel.findAll({
             where: {
-                profile_id: id
+                profile_id: id,
+                approve_status: 1
+
             },
 
             include: [
@@ -161,7 +222,8 @@ module.exports = function (testmodel) {
         profile.belongsTo(profileinfo, { foreignKey: 'id' });
         connectionModel.findAll({
             where: {
-                profile_id: id
+                profile_id: id,
+                approve_status: 1
             }
         }).then(function (result) {
             // console.log("sdffffffffffffffffffffffffffffffffffffffffffffffffffff"+result[0].children_id);
@@ -203,12 +265,12 @@ module.exports = function (testmodel) {
 
     connectionService.viewchildvolunteer = function (req, connectionModel, profile, profileinfo, Sequelize, res) {
         var id = req.body.id;
-        console.log("sdfl;sl;dfjkl;sdfkj" + id);
         connectionModel.belongsTo(profile, { foreignKey: 'profile_id' });
         profile.belongsTo(profileinfo, { foreignKey: 'id' });
         connectionModel.findAll({
             where: {
-                children_id: id
+                children_id: id,
+                approve_status: 1 //approve_status
             },
 
             include: [
@@ -240,65 +302,83 @@ module.exports = function (testmodel) {
         })
     }
     connectionService.connectionapproval = function (req, childrenProfileModel, connectionModel, profile, profileinfo, Sequelize, callBack) {
+
         connectionModel.belongsTo(childrenProfileModel, { foreignKey: 'children_id' });
         connectionModel.belongsTo(profile, { foreignKey: 'profile_id' });
         profile.belongsTo(profileinfo, { foreignKey: 'id' });
-        connectionModel.findAll({
-            where: {
-                approve_status: 0,
-                flag: 0
-            },
-
-            include: [
-                {
-                    model: childrenProfileModel
-                },
-                {
-                    model: profile,
-                    include: [
-                        {
-                            model: profileinfo
-                        }
-                    ]
-                }
-            ]
-        }).then(function (results) {
-            callBack(results);
-        })
-    }
-
-    connectionService.denyapprovalconnection = function (req, connectionModel, profile, Sequelize, res) {
-        var id = req.body.id;
-        var profile_id = req.body.profile_id;
-        var role = req.body.role;
-        console.log("hjjjjjjjjjjjjjjjjjjj" + profile_id);
-        var status = req.body.status;
-        var time = req.body.time;
-             connectionModel.update({
-            approve_status: 2,
-            updated_at: time
-        },
-            {
+        var connectionOperation = req.body.connectionOperation;
+        if (connectionOperation == "volunteer") {
+            connectionModel.findAll({
                 where: {
-                    id: id
-                }
+                    approve_status: 0,
+                    role: "volunteer",
+                    flag: 0
+                },
 
-            }).then(function (result) {
-                res.send(results);
-                    
-            });
+                include: [
+                    {
+                        model: childrenProfileModel
+                    },
+                    {
+                        model: profile,
+                        include: [
+                            {
+                                model: profileinfo
+                            }
+                        ]
+                    }
+                ]
+            }).then(function (results) {
+                console.log("helllllllllllo" + results);
+                callBack(results);
+            })
+        }
+        if (connectionOperation == "mentor") {
+            connectionModel.findAll({
+                where: {
+                    approve_status: 0,
+                    role: "mentor"
+                },
+
+                include: [
+                    {
+                        model: childrenProfileModel,
+                        where: {
+                            mentor_approval: 1
+                        }
+                    },
+                    {
+                        model: profile,
+                        include: [
+                            {
+                                model: profileinfo
+                            }
+                        ]
+                    }
+                ]
+            }).then(function (results) {
+                callBack(results);
+            })
+        }
+
     }
 
 
     connectionService.changeapproval = function (req, connectionModel, profile, Sequelize, res) {
         var id = req.body.id;
         var profile_id = req.body.profile_id;
-        console.log("fdssjl;akkkkkkkkkfjlkdfdslkjsdf;lfkjdfdkj" + req.body.status);
         console.log("hjjjjjjjjjjjjjjjjjjj" + profile_id);
         var status = req.body.status;
-        if (status == true) {
+        var time = req.body.time;
+        // if (status == true) {
+        profile.findAll({
+            where: {
+                id: profile_id
+            }
+        }).then(function (profile_find) {
             connectionModel.update({
-                approve_status: 1
+                approve_status: 1,
+                updated_at: time
             },
                 {
                     where: {
@@ -309,29 +389,95 @@ module.exports = function (testmodel) {
                     // console.log("sdddddddddddddddddddddddddddddddddddddddddddddddddddddddddz" + result);
                     profile.update({
                         connection_status: 1,
+                        updated_at: time
                     },
                         {
                             where: {
                                 id: profile_id
                             }
                         }).then(function (results) {
-
+                            var mailOptions = {
+                                to: profile_find[0].email_id,
+                                subject: "Children Connection Approved",
+                                text: "The child you are requested has been Approved by admin"
+                            }
+                            verification.smtpTransport.sendMail(mailOptions, function (error, response) {
+                                if (error) {
+                                    // console.log(error);
+                                    res.end("error");
+                                }
+                                else {
+                                }
+                            });
                             res.send(results);
                         });
-                });
-        }
-        else {
+                })
+        });
+        // }
+        // else {
+        //     connectionModel.update({
+        //         flag: 1
+        //     },
+        //         {
+        //             where: {
+        //                 id: id
+        //             }
+        //         }).then(function (result) {
+        //             res.send(result);
+        //         })
+        // }
+    }
+
+    connectionService.denyapprovalconnection = function (req, connectionModel, profile, Sequelize, res) {
+        var id = req.body.id;
+        var profile_id = req.body.profile_id;
+        console.log("hjjjjjjjjjjjjjjjjjjj" + profile_id);
+        var status = req.body.status;
+        var time = req.body.time;
+        var childrenid = req.body.childrenprofileid;
+        profile.findAll({
+            where: {
+                id: profile_id
+            }
+        }).then(function (profile_find) {
             connectionModel.update({
-                flag: 1
+                approve_status: 2,
+                updated_at: time
             },
                 {
                     where: {
                         id: id
                     }
+
                 }).then(function (result) {
-                    res.send(result);
-                })
-        }
+                    // console.log("sdddddddddddddddddddddddddddddddddddddddddddddddddddddddddz" + result);
+                    profile.update({
+                        connection_status: 0,
+                        updated_at: time
+                    },
+                        {
+                            where: {
+                                id: childrenid
+                            }
+                        }).then(function (results) {
+                            var mailOptions = {
+                                to: profile_find[0].email_id,
+                                subject: "Children Connection Denied",
+                                text: "The child you are requested has been approved by Denied"
+                            }
+                            verification.smtpTransport.sendMail(mailOptions, function (error, response) {
+                                if (error) {
+                                    // console.log(error);
+                                    res.end("error");
+                                }
+                                else {
+                                }
+                            });
+                            res.send(results);
+                        });
+                });
+        });
+
     }
     connectionService.viewadmintracker = function (req, connectionModel, profile, profileinfo, childrenProfileModel, Sequelize, callBack) {
 
@@ -386,7 +532,7 @@ module.exports = function (testmodel) {
                         role: "mentor"
                     }
                 }).then(function (results) {
-                    // console.log(results);
+                    console.log(results);
                     if (results >= 1) {
                         callBack("0");
                     }
@@ -399,5 +545,7 @@ module.exports = function (testmodel) {
         })
 
     }
+
+
     return connectionService;
 }

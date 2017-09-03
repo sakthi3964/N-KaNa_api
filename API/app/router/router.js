@@ -8,6 +8,7 @@ module.exports = function (databaseBS, Sequelize) {
     var loginactiveChangeRouter = require('../controller/loginController')(databaseBS, Sequelize);
     var ApiRouter = {};
     ApiRouter.apiRouters = function (router) {
+
         router.post('/childreviewcheck', childrenReviewRouter.childreviewcheck);// to check review is filled for more than 3 months     
         router.post('/childReviewDates', childrenReviewRouter.childReviewDates);// to fetch dates for filled child review
         router.post('/childReviewDatesMentor', childrenReviewRouter.childReviewDatesMentor);  // to fetch dates for mentor
@@ -25,17 +26,13 @@ module.exports = function (databaseBS, Sequelize) {
         router.get('/selectChild', childrenProfileRouter.SelectChild);//display list registed children
         router.post('/viewchildrenownprofile', childrenProfileRouter.viewdata);//children profile view via volunteerhome
         router.post('/insertConnectionRequest', connectionRouter.InsertRequest);
-        router.post('/deniedvolunteernextchild', connectionRouter.deniedvolunteernextchild);
         router.get('/loginactivechange', loginactiveChangeRouter.loginactivechange); // list details for login active change page
-        router.post('/viewlogindetails', loginactiveChangeRouter.viewlogindetails);
         router.get('/approvevolunteer', registrationRouter.viewVolunteerToApprove); // 
         router.post('/changestatus', registrationRouter.changeStatusController);
-        router.post('/denyloginstatus', registrationRouter.denyloginstatus);// deny approve status to stop login
         router.get('/listofmentor', profileRouter.listofmentor);//display list of mentor for both admin side and vounteer side
         router.post('/viewmentor', profileRouter.viewmentor);//Select paticular mentor for both admin and volunteer side
         router.get('/listchild', childrenProfileRouter.listchild);
-        router.post('/denyapprovalconnection', connectionRouter.denyapprovalconnection);
-         router.post('/denydetails', connectionRouter.denydetails);// approve status checking for providing deny message after ordering profile id
+        router.post('/denydetails', connectionRouter.denydetails);// approve status checking for providing deny message after ordering profile id
         router.post('/accept_preassess', childrenProfileRouter.accept_preassess);//to list to approve_preassess
         router.post('/deny_preassess', childrenProfileRouter.deny_preassess);
         router.get('/approve_preassess', childrenProfileRouter.approve_preassess);
@@ -52,13 +49,25 @@ module.exports = function (databaseBS, Sequelize) {
         router.post('/addfiles', registrationRouter.addfiles);
         router.post('/childphoto', childrenProfileRouter.childphoto);
         router.get('/viewadmintracker', connectionRouter.viewadmintracker);
-        router.get('/connectionapproval', connectionRouter.connectionapproval);
+        router.post('/connectionapproval', connectionRouter.connectionapproval);
         router.post('/changeapproval', connectionRouter.changeapproval);
+        router.post('/denyapprovalconnection', connectionRouter.denyapprovalconnection);
         router.post('/volunteerhomeviewmentor', connectionRouter.volunteerhomeviewmentor);
         router.post('/mentorgraphDates', trackerRouter.mentorgraphDates);
         router.post('/adminmentorgraphDates', trackerRouter.adminmentorgraphDates);
-        router.post('/editreturn', profileRouter.editreturn);
-        router.post('/editupdate', profileRouter.editupdate);
+        router.post('/editreturn', profileRouter.editreturn);// to fetch data from database and to display in registration page
+        router.post('/editupdate', profileRouter.editupdate); // to update the affected value in database in registration page
+        router.post('/denyloginstatus', registrationRouter.denyloginstatus);// deny approve status to stop login   
+        router.post('/viewlogindetails', loginactiveChangeRouter.viewlogindetails);
+        router.post('/deniedvolunteernextchild', connectionRouter.deniedvolunteernextchild);
+        router.post('/userVerification', registrationRouter.userVerification);//Email verification link
+        router.post('/forgotPassword', registrationRouter.forgotPassword);//Forgot Password
+        router.post('/changePassword', registrationRouter.changePassword);//update password 
+        router.post('/cumulativegraph', trackerRouter.cumulativegraph);
+        router.post('/cumulativegraphwithdate', trackerRouter.cumulativegraphwithdate);
+        router.post('/contactUs', registrationRouter.contactUs);
+        router.post('/mentorapproval', connectionRouter.mentorApproval);
+
     }
     return ApiRouter;
 }

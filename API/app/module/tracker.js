@@ -47,6 +47,9 @@ module.exports = {
             },
             review:{
                 type: Sequelize.STRING
+            },
+            created_at:{
+                type: Sequelize.STRING
             }
             
              });
